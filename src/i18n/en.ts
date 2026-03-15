@@ -12,9 +12,7 @@ export const en = {
         caption: "Two continents, one love story.",
         weddingDate: "Saturday, 12 September 2026",
         weddingVenue: "Waterfalls Place · Lusaka, Zambia",
-        ceremonyTime: "Ceremony at 15:00",
-        traditionalDate: "Friday, 11 September 2026",
-        traditionalLabel: "Traditional Ceremony",
+        ceremonyTime: "Ceremony at 14:00",
         statDay: "Wedding Day",
         statCity: "Lusaka",
         statCountries: "Countries to explore",
@@ -33,7 +31,6 @@ export const en = {
         eyebrow: "12. September 2026",
         title: "The Wedding Day",
         timeline: [
-            { time: "11.09", title: "Traditional Ceremony", desc: "The day before the wedding we celebrate with a traditional ceremony. More details to follow." },
             { time: "14:30", title: "Guests Arrive", desc: "Please arrive 30 minutes before the ceremony begins. Waterfalls Place, Silverest 13935, Off Great East Road, Lusaka." },
             { time: "15:00", title: "Wedding Ceremony", desc: "The ceremony begins. We exchange vows surrounded by the people we love most." },
             { time: "After", title: "Cocktail Reception", desc: "Drinks and canapés in the garden as the afternoon sun sets over Lusaka." },
