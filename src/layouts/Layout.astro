@@ -1,0 +1,81 @@
+---
+import '../styles/global.css';
+import type { Lang } from '../i18n';
+import { t } from '../i18n';
+
+interface Props {
+  lang: Lang;
+  page: string;
+}
+
+const { lang, page } = Astro.props;
+const tr = t(lang);
+
+const navPages = [
+  { key: 'home',      slug: '' },
+  { key: 'wedding',   slug: 'wedding' },
+  { key: 'travel',    slug: 'travel' },
+  { key: 'qa',        slug: 'qa' },
+  { key: 'guestbook', slug: 'guestbook' },
+] as const;
+
+function pageUrl(pageLang: string, pageSlug: string) {
+  const slug = pageSlug === '' ? '' : `/${pageSlug}`;
+  return `/${pageLang}${slug}`;
+}
+---
+
+<!doctype html>
+<html lang={lang}>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Chimwemwe & Markus – Wedding September 12, 2026 in Lusaka, Zambia" />
+  <title>Chimwemwe & Markus · 12.09.2026</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+</head>
+<body>
+<nav>
+  <a href={`/${lang}`} class="nav-logo">C & M</a>
+  <div class="nav-right">
+    <div class="nav-links">
+      {navPages.map(({ key, slug }) => (
+          <a
+              href={pageUrl(lang, slug)}
+              class={page === key ? 'active' : ''}
+          >
+            {tr.nav[key]}
+          </a>
+      ))}
+    </div>
+    <div class="lang-toggle">
+      <a href={pageUrl('de', page === 'home' ? '' : page)} class={lang === 'de' ? 'active' : ''}>DE</a>
+      <span>|</span>
+      <a href={pageUrl('en', page === 'home' ? '' : page)} class={lang === 'en' ? 'active' : ''}>EN</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <slot />
+</main>
+
+<footer>
+  <p class="footer-names">{tr.footer.names}</p>
+  <p class="footer-date">{tr.footer.date}</p>
+</footer>
+
+<script>
+  // On first visit, redirect to browser language
+  if (!sessionStorage.getItem('lang-redirected')) {
+    sessionStorage.setItem('lang-redirected', 'true');
+    const browserLang = navigator.language.toLowerCase().startsWith('de') ? 'de' : 'en';
+    const pathLang = window.location.pathname.split('/')[1];
+    if (pathLang !== browserLang) {
+      const rest = window.location.pathname.split('/').slice(2).join('/');
+      window.location.replace(`/${browserLang}${rest ? '/' + rest : ''}`);
+    }
+  }
+</script>
+</body>
+</html>
