@@ -1,8 +1,13 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import { t } from '../i18n';
+import Layout from '../../layouts/Layout.astro';
+import { t, languages } from '../../i18n';
+import type { Lang } from '../../i18n';
 
-const lang = 'en';
+export function getStaticPaths() {
+    return languages.map(lang => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params as { lang: Lang };
 const tr = t(lang);
 const tv = tr.travel;
 ---
@@ -10,7 +15,7 @@ const tv = tr.travel;
 <Layout lang={lang} page="travel">
     <style>
         .travel-intro { font-size: 14px; color: var(--text-mid); line-height: 1.8; margin-bottom: 2rem; font-style: italic; text-align: center; max-width: 520px; margin-left: auto; margin-right: auto; }
-        .destination { margin-bottom: 0; padding: 2.5rem 0; border-bottom: 1px solid var(--divider); display: grid; grid-template-columns: 140px 1fr; gap: 2.5rem; align-items: start; }
+        .destination { padding: 2.5rem 0; border-bottom: 1px solid var(--divider); display: grid; grid-template-columns: 140px 1fr; gap: 2.5rem; align-items: start; }
         .destination:last-child { border-bottom: none; }
         .dest-number { font-family: 'Cormorant Garamond', serif; font-size: 64px; font-weight: 300; color: var(--divider); line-height: 1; text-align: right; }
         .dest-flag { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.4rem; font-weight: 400; }
@@ -20,10 +25,7 @@ const tv = tr.travel;
         .dest-tags { display: flex; flex-wrap: wrap; gap: 6px; }
         .dest-badge { padding: 3px 10px; border: 0.5px solid var(--divider); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-light); }
         .tbc-badge { padding: 3px 10px; background: var(--gold-light); border: 0.5px solid var(--gold); font-size: 10px; letter-spacing: 0.08em; color: var(--gold); }
-        @media (max-width: 640px) {
-            .destination { grid-template-columns: 1fr; }
-            .dest-number { display: none; }
-        }
+        @media (max-width: 640px) { .destination { grid-template-columns: 1fr; } .dest-number { display: none; } }
     </style>
 
     <div class="page-header">
@@ -33,7 +35,6 @@ const tv = tr.travel;
 
     <div class="content">
         <p class="travel-intro">{tv.intro}</p>
-
         {tv.destinations.map(dest => (
                 <div class="destination">
                     <div class="dest-number">{dest.number}</div>
@@ -49,9 +50,6 @@ const tv = tr.travel;
                     </div>
                 </div>
         ))}
-
-        <div class="note-box" style="margin-top:1rem">
-            <p>{tv.note}</p>
-        </div>
+        <div class="note-box" style="margin-top:1rem"><p>{tv.note}</p></div>
     </div>
 </Layout>

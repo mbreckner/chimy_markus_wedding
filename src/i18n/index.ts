@@ -6,12 +6,8 @@ export type Translations = typeof en;
 
 export const translations = { en, de };
 
-export function getLang(url: URL): Lang {
-    const path = url.pathname;
-    if (path.startsWith('/de')) return 'de';
-    return 'en';
+export function t(lang: string): Translations {
+    return translations[lang as Lang] ?? translations.en;
 }
 
-export function t(lang: Lang): Translations {
-    return translations[lang];
-}
+export const languages: Lang[] = ['en', 'de'];

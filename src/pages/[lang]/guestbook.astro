@@ -1,8 +1,13 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { t } from '../../i18n';
+import { t, languages } from '../../i18n';
+import type { Lang } from '../../i18n';
 
-const lang = 'de';
+export function getStaticPaths() {
+    return languages.map(lang => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params as { lang: Lang };
 const tr = t(lang);
 const gb = tr.guestbook;
 ---
@@ -22,19 +27,18 @@ const gb = tr.guestbook;
         <p class="page-eyebrow">{gb.eyebrow}</p>
         <h1 class="page-title">{gb.title}</h1>
     </div>
+
     <div class="content">
         <div class="messages-grid" id="messages-list">
-            <div class="message-card">
-                <p class="msg-name">Mama &amp; Papa Breckner</p>
-                <p class="msg-text">Wir könnten nicht stolzer und glücklicher sein. Wir wünschen euch ein Leben voller Liebe und Abenteuer.</p>
-                <p class="msg-date">März 2026</p>
-            </div>
-            <div class="message-card">
-                <p class="msg-name">Sophie &amp; Thomas</p>
-                <p class="msg-text">Afrika, Safari und für immer — was für ein Beginn einer Ehe. Wir können es kaum erwarten, mit euch zu feiern!</p>
-                <p class="msg-date">März 2026</p>
-            </div>
+            {gb.sampleMessages.map(msg => (
+                    <div class="message-card">
+                        <p class="msg-name">{msg.name}</p>
+                        <p class="msg-text">{msg.text}</p>
+                        <p class="msg-date">{msg.date}</p>
+                    </div>
+            ))}
         </div>
+
         <div class="form-section">
             <h3 class="form-title">{gb.formTitle}</h3>
             <p class="form-desc">{gb.formDesc}</p>
@@ -44,6 +48,7 @@ const gb = tr.guestbook;
             <div class="form-success" id="g-success">{gb.successMsg}</div>
         </div>
     </div>
+
     <script>
         document.getElementById('g-submit')?.addEventListener('click', () => {
             const name = (document.getElementById('g-name') as HTMLInputElement)?.value.trim();
@@ -53,7 +58,7 @@ const gb = tr.guestbook;
             if (list) {
                 const card = document.createElement('div');
                 card.className = 'message-card';
-                card.innerHTML = `<p class="msg-name">${name}</p><p class="msg-text">${text}</p><p class="msg-date">Gerade eben</p>`;
+                card.innerHTML = `<p class="msg-name">${name}</p><p class="msg-text">${text}</p><p class="msg-date">Just now</p>`;
                 list.prepend(card);
             }
             const success = document.getElementById('g-success');

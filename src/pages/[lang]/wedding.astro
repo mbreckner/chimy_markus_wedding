@@ -1,8 +1,13 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { t } from '../../i18n';
+import { t, languages } from '../../i18n';
+import type { Lang } from '../../i18n';
 
-const lang = 'de';
+export function getStaticPaths() {
+    return languages.map(lang => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params as { lang: Lang };
 const tr = t(lang);
 const w = tr.wedding;
 ---
@@ -10,7 +15,7 @@ const w = tr.wedding;
 <Layout lang={lang} page="wedding">
     <style>
         .timeline { margin-top: 1rem; }
-        .timeline-item { display: grid; grid-template-columns: 70px 32px 1fr; gap: 0; align-items: stretch; }
+        .timeline-item { display: grid; grid-template-columns: 70px 32px 1fr; align-items: stretch; }
         .t-time { font-size: 11px; letter-spacing: 0.08em; color: var(--burgundy); font-weight: 500; text-align: right; padding: 1.25rem 1.25rem 0 0; line-height: 1.3; }
         .t-spine { display: flex; flex-direction: column; align-items: center; }
         .t-dot { width: 10px; height: 10px; border-radius: 50%; border: 1.5px solid var(--gold); background: var(--ivory); flex-shrink: 0; margin-top: 1.4rem; position: relative; z-index: 1; }
@@ -24,6 +29,7 @@ const w = tr.wedding;
         <p class="page-eyebrow">{w.eyebrow}</p>
         <h1 class="page-title">{w.title}</h1>
     </div>
+
     <div class="content">
         <div class="timeline">
             {w.timeline.map((item, i) => (
@@ -40,6 +46,7 @@ const w = tr.wedding;
                     </div>
             ))}
         </div>
+
         <div class="info-grid">
             {Object.values(w.cards).map(card => (
                     <div class="info-card">
@@ -48,6 +55,9 @@ const w = tr.wedding;
                     </div>
             ))}
         </div>
-        <div class="note-box" style="margin-top:2.5rem"><p>{w.note}</p></div>
+
+        <div class="note-box" style="margin-top:2.5rem">
+            <p>{w.note}</p>
+        </div>
     </div>
 </Layout>

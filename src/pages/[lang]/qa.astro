@@ -1,8 +1,13 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import { t } from '../i18n';
+import Layout from '../../layouts/Layout.astro';
+import { t, languages } from '../../i18n';
+import type { Lang } from '../../i18n';
 
-const lang = 'en';
+export function getStaticPaths() {
+    return languages.map(lang => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params as { lang: Lang };
 const tr = t(lang);
 const qa = tr.qa;
 const gb = tr.guestbook;
@@ -12,7 +17,7 @@ const gb = tr.guestbook;
     <style>
         .qa-item { border-bottom: 1px solid var(--divider); }
         .qa-q { font-family: 'Cormorant Garamond', serif; font-size: 21px; font-weight: 400; color: var(--text-dark); cursor: pointer; display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 0; gap: 1rem; user-select: none; }
-        .qa-toggle { width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--divider); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--gold); font-size: 20px; font-family: 'Jost', sans-serif; transition: all 0.2s; background: var(--ivory); line-height: 1; }
+        .qa-toggle { width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--divider); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--gold); font-size: 20px; transition: all 0.2s; background: var(--ivory); line-height: 1; }
         .qa-item.open .qa-toggle { background: var(--burgundy); color: var(--ivory); border-color: var(--burgundy); }
         .qa-a { font-size: 14px; color: var(--text-mid); line-height: 1.8; max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.2s; }
         .qa-item.open .qa-a { max-height: 300px; padding-bottom: 1.25rem; }
@@ -39,14 +44,8 @@ const gb = tr.guestbook;
         <div class="form-section">
             <h3 class="form-title">{qa.formTitle}</h3>
             <p class="form-desc">{qa.formDesc}</p>
-            <div class="form-row">
-                <label>{gb.nameLabel}</label>
-                <input type="text" id="q-name" placeholder={qa.namePlaceholder} />
-            </div>
-            <div class="form-row">
-                <label>{gb.questionLabel}</label>
-                <textarea id="q-text" placeholder={qa.questionPlaceholder}></textarea>
-            </div>
+            <div class="form-row"><label>{qa.nameLabel}</label><input type="text" id="q-name" placeholder={qa.namePlaceholder} /></div>
+            <div class="form-row"><label>{qa.questionLabel}</label><textarea id="q-text" placeholder={qa.questionPlaceholder}></textarea></div>
             <button class="btn-submit" id="q-submit">{qa.submitBtn}</button>
             <div class="form-success" id="q-success">{qa.successMsg}</div>
         </div>
