@@ -22,7 +22,12 @@ const tv = tr.travel;
         .dest-name { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 300; color: var(--burgundy); margin-bottom: 0.2rem; font-style: italic; }
         .dest-duration { font-size: 11px; letter-spacing: 0.08em; color: var(--text-light); margin-bottom: 0.75rem; text-transform: uppercase; }
         .dest-desc { font-size: 13px; color: var(--text-mid); line-height: 1.8; margin-bottom: 0.75rem; }
-        .dest-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+        .dest-how-to-get { font-size: 12px; color: var(--text-mid); line-height: 1.8; margin-bottom: 0.75rem; padding: 0.6rem 0.9rem; border-left: 2px solid var(--divider); }
+        .dest-how-to-get-label { font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-light); margin-bottom: 0.2rem; }
+        .dest-highlights { list-style: none; padding: 0; margin: 0 0 0.75rem 0; }
+        .dest-highlights li { font-size: 13px; color: var(--text-mid); line-height: 1.7; padding: 0.2rem 0 0.2rem 1.1rem; position: relative; }
+        .dest-highlights li::before { content: "–"; position: absolute; left: 0; color: var(--gold); }
+        .dest-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 0.75rem; }
         .dest-badge { padding: 3px 10px; border: 0.5px solid var(--divider); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-light); }
         .tbc-badge { padding: 3px 10px; background: var(--gold-light); border: 0.5px solid var(--gold); font-size: 10px; letter-spacing: 0.08em; color: var(--gold); }
         @media (max-width: 640px) { .destination { grid-template-columns: 1fr; } .dest-number { display: none; } }
@@ -42,7 +47,20 @@ const tv = tr.travel;
                         <p class="dest-flag">{dest.flag}</p>
                         <h2 class="dest-name">{dest.name}</h2>
                         <p class="dest-duration">{dest.duration}</p>
-                        <p class="dest-desc">{dest.desc}</p>
+                        {dest.desc.split('\n').filter(p => p.trim()).map(p => (
+                            <p class="dest-desc">{p.trim()}</p>
+                        ))}
+                        {dest.howToGet && (
+                            <div class="dest-how-to-get">
+                                <p class="dest-how-to-get-label">{tv.howToGetLabel}</p>
+                                <p>{dest.howToGet}</p>
+                            </div>
+                        )}
+                        {dest.highlights.length > 0 && (
+                            <ul class="dest-highlights">
+                                {dest.highlights.map(h => <li>{h}</li>)}
+                            </ul>
+                        )}
                         <div class="dest-tags">
                             {dest.tags.map(tag => <span class="dest-badge">{tag}</span>)}
                             {dest.tbc.map(tag => <span class="tbc-badge">{tag}</span>)}
