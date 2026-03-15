@@ -119,11 +119,10 @@ export const en = {
         eyebrow: "Questions & Answers",
         title: "Everything you need to know",
         items: [
-            { q: "Do I need a visa for Zambia?", a: "Most European passport holders can obtain a visa on arrival or an e-visa for Zambia. We recommend checking the official Zambian immigration website or your country's travel advice well in advance. The KAZA Univisa also covers Zimbabwe if you plan to visit Victoria Falls." },
+            { q: "Do I need a visa for Zambia and Tanzania?", a: "As of March 2026: With most European passports you can enter Zambia without a visa. For Tanzania, an e-visa is required, costs approximately $50 USD, processing time is around 10 days, and it can be applied for here: https://visa.immigration.go.tz/. This information is provided without guarantee — please check the current visa requirements before your trip." },
             { q: "Are children welcome at the wedding?", a: "Our wedding celebration is planned as an adults-only event. While we love your little ones dearly, we kindly ask you to arrange childcare in advance. Thank you so much for your understanding." },
-            { q: "What is the dress code?", a: "Light summery colours or traditional clothing. Think warm, bright tones — florals, linens, and pastels work beautifully in the Lusaka heat. Traditional attire from any culture is warmly welcomed and celebrated." },
             { q: "How do I get to the venue?", a: "Waterfalls Place is located at Silverest 13935, Off Great East Road, Lusaka. For getting there and back, we recommend local taxi apps Yango or Ulendo — both reliable and easy to use in Lusaka." },
-            { q: "Can I join the trip to Tanzania?", a: "Yes! You are warmly welcome to join us for the full journey or just parts of it. The plan is still taking shape — once confirmed, we'll share all details. Send us a message or submit a question below if you're interested." },
+            { q: "Can I join the trip to Tanzania?", a: "Yes! You are more than welcome to join us for the entire trip or just parts of it. Updates and details — including information on flights, accommodation, and more — will be shared in the Travel tab as plans are confirmed. Everyone can then book independently for whichever parts they'd like to join." },
             { q: "Where should I stay in Lusaka?", a: "We are finalising accommodation recommendations and will update this page soon. Reach out to us directly for early suggestions!" },
         ],
         formTitle: "Have another question?",

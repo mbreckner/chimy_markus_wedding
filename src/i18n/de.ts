@@ -119,11 +119,10 @@ export const de = {
         eyebrow: "Fragen & Antworten",
         title: "Alles, was ihr wissen müsst",
         items: [
-            { q: "Brauche ich ein Visum für Sambia?", a: "Die meisten europäischen Reisepässe erlauben ein Visum bei der Einreise oder ein E-Visum für Sambia. Wir empfehlen, die offizielle sambishe Einwanderungswebsite oder die Reisehinweise eures Landes rechtzeitig zu prüfen. Das KAZA-Univisum gilt auch für Simbabwe, falls ihr die Victoria Falls besuchen möchtet." },
+            { q: "Brauche ich ein Visum für Sambia und Tansania?", a: "Stand März 2026: Mit einem deutschen Reisepass kann man ohne Visum in Sambia einreisen. Für Tanzania wird ein E-Visum benötigt, kostet ca. 50 USD und die Bearbeitungszeit beträgt ca. 10 Tage und kann hier beantragt werden https://visa.immigration.go.tz/. Diese Angaben sind ohne Gewähr, bitte aktuelle Visabestimmungen vor der Reise überprüfen." },
             { q: "Sind Kinder bei der Hochzeit willkommen?", a: "Unsere Hochzeitsfeier ist als Veranstaltung nur für Erwachsene geplant. Obwohl wir eure Kleinen sehr lieben, bitten wir euch herzlich, im Voraus eine Betreuung zu organisieren. Vielen Dank für euer Verständnis." },
-            { q: "Was ist der Dresscode?", a: "Sommerlich helle Farben oder traditionelle Kleidung. Denkt an warme, helle Töne — Blumenmuster, Leinen und Pastellfarben passen wunderbar zur Hitze in Lusaka. Traditionelle Kleidung aus jeder Kultur ist herzlich willkommen." },
             { q: "Wie komme ich zum Veranstaltungsort?", a: "Waterfalls Place befindet sich in Silverest 13935, Off Great East Road, Lusaka. Für die An- und Abreise empfehlen wir die lokalen Taxi-Apps Yango oder Ulendo — beide zuverlässig und einfach zu nutzen in Lusaka." },
-            { q: "Kann ich bei der Reise nach Tansania mitmachen?", a: "Ja! Ihr seid herzlich eingeladen, die gesamte Reise oder nur Teile davon mitzumachen. Der Plan nimmt noch Gestalt an — sobald alles bestätigt ist, teilen wir alle Details. Schickt uns eine Nachricht oder stellt unten eine Frage, wenn ihr Interesse habt." },
+            { q: "Kann ich bei der Reise nach Tansania mitmachen?", a: "Ja! Ihr seid herzlich eingeladen, die gesamte Reise oder nur Teile davon mitzumachen. Alle Updates und Details — einschließlich Informationen zu Flügen, Unterkunft und mehr — werden im Tab „Reisen\" upgedatet. Jeder kann die Abschnitte, bei denen er dabei sein möchte, eigenständig buchen.." },
             { q: "Wo soll ich in Lusaka übernachten?", a: "Wir finalisieren gerade unsere Unterkunftsempfehlungen und werden diese Seite bald aktualisieren. Meldet euch direkt bei uns für frühe Tipps!" },
         ],
         formTitle: "Noch eine Frage?",
