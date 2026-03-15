@@ -1,0 +1,58 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { t } from '../i18n';
+
+const lang = 'en';
+const tr = t(lang);
+const w = tr.wedding;
+---
+
+<Layout lang={lang} page="wedding">
+    <style>
+        .timeline { margin-top: 1rem; }
+        .timeline-item { display: grid; grid-template-columns: 70px 32px 1fr; gap: 0; align-items: stretch; }
+        .t-time { font-size: 11px; letter-spacing: 0.08em; color: var(--burgundy); font-weight: 500; text-align: right; padding: 1.25rem 1.25rem 0 0; line-height: 1.3; }
+        .t-spine { display: flex; flex-direction: column; align-items: center; }
+        .t-dot { width: 10px; height: 10px; border-radius: 50%; border: 1.5px solid var(--gold); background: var(--ivory); flex-shrink: 0; margin-top: 1.4rem; position: relative; z-index: 1; }
+        .t-line-v { width: 1px; flex: 1; background: var(--divider); margin-top: 2px; }
+        .t-content { padding: 1.1rem 0 1.5rem 1.25rem; }
+        .t-title { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 400; color: var(--text-dark); margin-bottom: 0.3rem; }
+        .t-desc { font-size: 13px; color: var(--text-mid); line-height: 1.7; }
+    </style>
+
+    <div class="page-header">
+        <p class="page-eyebrow">{w.eyebrow}</p>
+        <h1 class="page-title">{w.title}</h1>
+    </div>
+
+    <div class="content">
+        <div class="timeline">
+            {w.timeline.map((item, i) => (
+                    <div class="timeline-item">
+                        <span class="t-time">{item.time}</span>
+                        <div class="t-spine">
+                            <div class="t-dot"></div>
+                            <div class="t-line-v" style={i === w.timeline.length - 1 ? 'background:transparent' : ''}></div>
+                        </div>
+                        <div class="t-content">
+                            <p class="t-title">{item.title}</p>
+                            <p class="t-desc">{item.desc}</p>
+                        </div>
+                    </div>
+            ))}
+        </div>
+
+        <div class="info-grid">
+            {Object.values(w.cards).map(card => (
+                    <div class="info-card">
+                        <p class="info-card-label">{card.label}</p>
+                        <p class="info-card-content" set:html={card.content} />
+                    </div>
+            ))}
+        </div>
+
+        <div class="note-box" style="margin-top:2.5rem">
+            <p>{w.note}</p>
+        </div>
+    </div>
+</Layout>

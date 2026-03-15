@@ -1,17 +1,148 @@
 ---
+import Layout from '../layouts/Layout.astro';
+import { t } from '../i18n';
 
+const lang = 'en';
+const tr = t(lang);
+const h = tr.home;
+const w = tr.wedding;
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout lang={lang} page="home">
+	<style>
+		.hero-banner {
+			background: var(--burgundy); color: var(--ivory);
+			text-align: center; padding: 0.6rem 1rem;
+			font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 400;
+		}
+		.hero-split {
+			display: grid; grid-template-columns: 1fr 1fr; min-height: 85vh;
+		}
+		.hero-left {
+			display: flex; flex-direction: column;
+			justify-content: center; align-items: flex-start;
+			padding: 5rem 4rem 5rem 5rem;
+			position: relative;
+		}
+		.hero-left::after {
+			content: ''; position: absolute; right: 0; top: 10%; bottom: 10%;
+			width: 1px; background: var(--divider);
+		}
+		.hero-eyebrow {
+			font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase;
+			color: var(--gold); margin-bottom: 1.5rem; font-weight: 400;
+		}
+		.hero-names { font-family: 'Cormorant Garamond', serif; color: var(--burgundy); line-height: 1; margin-bottom: 1rem; }
+		.hero-names .first { font-size: clamp(40px, 5.5vw, 76px); font-weight: 300; font-style: italic; display: block; }
+		.hero-names .amp { font-size: clamp(22px, 3vw, 34px); font-style: italic; font-weight: 300; color: var(--gold); display: block; margin: 0.3rem 0 0.3rem 0.5rem; }
+		.hero-names .second { font-size: clamp(40px, 5.5vw, 76px); font-weight: 300; font-style: italic; display: block; }
+		.hero-rule { width: 48px; height: 1px; background: var(--gold); margin: 1.5rem 0; }
+		.hero-meta { font-size: 12px; line-height: 2.2; color: var(--text-mid); letter-spacing: 0.05em; }
+		.hero-meta strong { color: var(--burgundy); font-weight: 500; font-size: 13px; display: block; }
+		.hero-right { position: relative; overflow: hidden; background: var(--ivory-dark); }
+		.hero-right img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
+		.hero-right-overlay {
+			position: absolute; bottom: 0; left: 0; right: 0; padding: 2rem;
+			background: linear-gradient(to top, rgba(36,21,21,0.55) 0%, transparent 100%);
+		}
+		.hero-right-overlay p {
+			font-family: 'Cormorant Garamond', serif;
+			font-size: 22px; font-style: italic; font-weight: 300; color: white; line-height: 1.4;
+		}
+		.stats-strip {
+			display: grid; grid-template-columns: repeat(3, 1fr);
+			border-top: 1px solid var(--divider); border-bottom: 1px solid var(--divider);
+		}
+		.stat { padding: 2rem 2.5rem; text-align: center; border-right: 1px solid var(--divider); }
+		.stat:last-child { border-right: none; }
+		.stat-num { font-family: 'Cormorant Garamond', serif; font-size: 40px; color: var(--burgundy); line-height: 1; font-weight: 300; }
+		.stat-label { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-light); margin-top: 0.4rem; }
+		.intro { max-width: 700px; margin: 0 auto; padding: 5rem 2rem; text-align: center; }
+		.intro-quote { font-family: 'Cormorant Garamond', serif; font-size: clamp(20px, 3vw, 30px); font-style: italic; font-weight: 300; color: var(--text-dark); line-height: 1.65; margin-bottom: 2rem; }
+		.intro-quote em { color: var(--burgundy); }
+		.intro-sub { font-size: 13px; color: var(--text-light); letter-spacing: 0.03em; }
+		.journey-teaser { background: var(--ivory-dark); padding: 4rem 2rem; border-top: 1px solid var(--divider); border-bottom: 1px solid var(--divider); }
+		.journey-inner { max-width: 800px; margin: 0 auto; }
+		.section-label { font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; font-weight: 400; text-align: center; }
+		.journey-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(26px, 4vw, 42px); font-style: italic; color: var(--burgundy); text-align: center; margin-bottom: 3rem; }
+		.journey-stops { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; position: relative; }
+		.journey-stops::before { content: ''; position: absolute; top: 21px; left: 12.5%; right: 12.5%; height: 1px; background: var(--gold); z-index: 0; }
+		.stop { text-align: center; padding: 0 1rem; position: relative; z-index: 1; }
+		.stop-dot { width: 44px; height: 44px; border-radius: 50%; background: var(--ivory); border: 1px solid var(--gold); display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--burgundy); }
+		.stop-name { font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--text-dark); margin-bottom: 0.25rem; }
+		.stop-detail { font-size: 11px; color: var(--text-light); }
+		@media (max-width: 640px) {
+			.hero-split { grid-template-columns: 1fr; }
+			.hero-right { height: 320px; }
+			.hero-left { padding: 3rem 1.5rem; }
+			.hero-left::after { display: none; }
+			.stats-strip { grid-template-columns: 1fr; }
+			.stat { border-right: none; border-bottom: 1px solid var(--divider); }
+			.journey-stops { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+			.journey-stops::before { display: none; }
+		}
+	</style>
+
+	<div class="hero-banner">{h.banner}</div>
+
+	<div class="hero-split">
+		<div class="hero-left">
+			<p class="hero-eyebrow">{h.eyebrow}</p>
+			<div class="hero-names">
+				<span class="first">Chimwemwe</span>
+				<span class="amp">&amp;</span>
+				<span class="second">Markus</span>
+			</div>
+			<div class="hero-rule"></div>
+			<div class="hero-meta">
+				<strong>{h.weddingDate}</strong>
+				{h.weddingVenue}<br />
+				{h.ceremonyTime}<br /><br />
+				<strong>{h.traditionalDate}</strong>
+				{h.traditionalLabel}
+			</div>
+		</div>
+		<div class="hero-right">
+			<img src="/images/couple.jpg" alt="Chimwemwe and Markus" />
+			<div class="hero-right-overlay">
+				<p>{h.caption}</p>
+			</div>
+		</div>
+	</div>
+
+	<div class="stats-strip">
+		<div class="stat">
+			<div class="stat-num">12.09</div>
+			<div class="stat-label">{h.statDay}</div>
+		</div>
+		<div class="stat">
+			<div class="stat-num">Lusaka</div>
+			<div class="stat-label">{h.statCity}</div>
+		</div>
+		<div class="stat">
+			<div class="stat-num">3</div>
+			<div class="stat-label">{h.statCountries}</div>
+		</div>
+	</div>
+
+	<div class="intro">
+		<p class="intro-quote" set:html={h.introQuote} />
+		<p class="intro-sub">{h.introSub}</p>
+	</div>
+
+	<div class="journey-teaser">
+		<div class="journey-inner">
+			<p class="section-label">{h.journeyLabel}</p>
+			<h2 class="journey-title">{h.journeyTitle}</h2>
+			<div class="journey-stops">
+				{h.stops.map(stop => (
+					<div class="stop">
+						<div class="stop-dot">{stop.letter}</div>
+						<div class="stop-name">{stop.name}</div>
+						<div class="stop-detail">{stop.detail}</div>
+					</div>
+				))}
+			</div>
+		</div>
+	</div>
+</Layout>

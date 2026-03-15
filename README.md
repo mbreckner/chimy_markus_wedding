@@ -41,3 +41,8 @@ All commands are run from the root of the project, from a terminal:
 ## 👀 Want to learn more?
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+
+## TODO
+- how does QA-question posting works?
+- maybe a section where people can vote if they are in for any of the travel plans?
+- TRAVEL section. Maybe more information about each step, about flights, lodges, etc.
