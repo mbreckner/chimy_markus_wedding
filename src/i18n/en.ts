@@ -120,7 +120,8 @@ export const en = {
             { q: "Are children welcome at the wedding?", a: "Our wedding celebration is planned as an adults-only event. While we love your little ones dearly, we kindly ask you to arrange childcare in advance. Thank you so much for your understanding." },
             { q: "How do I get to the venue?", a: "Waterfalls Place is located at Silverest 13935, Off Great East Road, Lusaka. For getting there and back, we recommend local taxi apps Yango or Ulendo — both reliable and easy to use in Lusaka." },
             { q: "Can I join the trip to Tanzania?", a: "Yes! You are more than welcome to join us for the entire trip or just parts of it. Updates and details — including information on flights, accommodation, and more — will be shared in the Travel tab as plans are confirmed. Everyone can then book independently for whichever parts they'd like to join." },
-            { q: "Where should I stay in Lusaka?", a: "We are finalising accommodation recommendations and will update this page soon. Reach out to us directly for early suggestions!" },
+            { q: "Where should I stay in Lusaka?", a: "The wedding venue is located right next to the international airport, making it very convenient to stay nearby — there are several lodges in various price ranges in the area. Those who'd prefer to explore the city can find plenty of good options in Lusaka itself as well. Booking.com and Airbnb offer a wide selection for every budget. If we have any specific recommendations, we'll share them here." },
+            { q: "How do I get around in Lusaka?", a: "Getting around Lusaka is easiest with Ulendo or Yango — both work just like Uber and the operate 24h. Please note: payment is cash only."}
         ],
         formTitle: "Have another question?",
         formDesc: "Can't find what you're looking for? Send us your question and we'll add it to the list.",
