@@ -46,3 +46,4 @@ Feel free to check [our documentation](https://docs.astro.build) or jump into ou
 - how does QA-question posting works?
 - maybe a section where people can vote if they are in for any of the travel plans?
 - TRAVEL section. Maybe more information about each step, about flights, lodges, etc.
+- Send Email for new question in QA
