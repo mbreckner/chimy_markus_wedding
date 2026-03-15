@@ -57,6 +57,42 @@ nav {
 .lang-toggle a.active { color: var(--burgundy); font-weight: 500; }
 .lang-toggle span { color: var(--divider); }
 
+/* Hamburger button — hidden on desktop */
+.nav-hamburger {
+    display: none;
+    flex-direction: column; justify-content: center; gap: 5px;
+    background: none; border: none; cursor: pointer;
+    padding: 4px; z-index: 200;
+}
+.nav-hamburger span {
+    display: block; width: 22px; height: 1px;
+    background: var(--burgundy); transition: all 0.25s;
+}
+
+/* Mobile drawer */
+.nav-drawer {
+    display: none;
+    position: fixed; top: 60px; left: 0; right: 0; bottom: 0;
+    background: var(--ivory);
+    flex-direction: column; align-items: center; justify-content: center;
+    gap: 2.5rem; z-index: 99;
+    border-top: 1px solid var(--divider);
+}
+.nav-drawer.open { display: flex; }
+.nav-drawer a {
+    font-size: 13px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--text-mid); text-decoration: none; font-weight: 400;
+}
+.nav-drawer a.active, .nav-drawer a:hover { color: var(--burgundy); }
+.nav-drawer .drawer-lang {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
+    border-top: 1px solid var(--divider); padding-top: 1.5rem; margin-top: 0.5rem;
+}
+.nav-drawer .drawer-lang a { color: var(--text-light); }
+.nav-drawer .drawer-lang a.active { color: var(--burgundy); font-weight: 500; }
+.nav-drawer .drawer-lang span { color: var(--divider); }
+
 /* PAGE HEADER */
 .page-header { padding: 5rem 2rem 3rem; text-align: center; position: relative; }
 .page-header::after { content: ''; display: block; width: 60px; height: 1px; background: var(--gold); margin: 1.5rem auto 0; }
@@ -98,9 +134,8 @@ footer { padding: 3rem 2rem; text-align: center; border-top: 1px solid var(--div
 /* RESPONSIVE */
 @media (max-width: 640px) {
     nav { padding: 0 1rem; }
-    .nav-links { gap: 1rem; }
-    .nav-links a { font-size: 9px; }
-    .lang-toggle { padding-left: 1rem; }
+    .nav-right { display: none; }         /* hide desktop nav */
+    .nav-hamburger { display: flex; }     /* show hamburger */
     .info-grid { grid-template-columns: 1fr; }
     .content { padding: 0 1.5rem 4rem; }
 }

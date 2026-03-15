@@ -37,13 +37,12 @@ function pageUrl(pageLang: string, pageSlug: string) {
 <body>
 <nav>
   <a href={`/${lang}`} class="nav-logo">C & M</a>
+
+  <!-- Desktop nav (existing) -->
   <div class="nav-right">
     <div class="nav-links">
       {navPages.map(({ key, slug }) => (
-          <a
-              href={pageUrl(lang, slug)}
-              class={page === key ? 'active' : ''}
-          >
+          <a href={pageUrl(lang, slug)} class={page === key ? 'active' : ''}>
             {tr.nav[key]}
           </a>
       ))}
@@ -54,7 +53,26 @@ function pageUrl(pageLang: string, pageSlug: string) {
       <a href={pageUrl('en', page === 'home' ? '' : page)} class={lang === 'en' ? 'active' : ''}>EN</a>
     </div>
   </div>
+
+  <!-- Hamburger button (mobile only) -->
+  <button class="nav-hamburger" id="nav-toggle" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- Mobile drawer -->
+<div class="nav-drawer" id="nav-drawer">
+  {navPages.map(({ key, slug }) => (
+      <a href={pageUrl(lang, slug)} class={page === key ? 'active' : ''}>
+        {tr.nav[key]}
+      </a>
+  ))}
+  <div class="drawer-lang">
+    <a href={pageUrl('de', page === 'home' ? '' : page)} class={lang === 'de' ? 'active' : ''}>DE</a>
+    <span>|</span>
+    <a href={pageUrl('en', page === 'home' ? '' : page)} class={lang === 'en' ? 'active' : ''}>EN</a>
+  </div>
+</div>
 
 <main>
   <slot />
@@ -76,6 +94,11 @@ function pageUrl(pageLang: string, pageSlug: string) {
       window.location.replace(`/${browserLang}${rest ? '/' + rest : ''}`);
     }
   }
+  const toggle = document.getElementById('nav-toggle');
+  const drawer = document.getElementById('nav-drawer');
+  toggle?.addEventListener('click', () => {
+    drawer?.classList.toggle('open');
+  });
 </script>
 </body>
 </html>

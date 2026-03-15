@@ -31,8 +31,8 @@ export const en = {
         eyebrow: "12. September 2026",
         title: "The Wedding Day",
         timeline: [
-            { time: "14:30", title: "Guests Arrive", desc: "Please arrive 30 minutes before the ceremony begins. Waterfalls Place, Silverest 13935, Off Great East Road, Lusaka." },
-            { time: "15:00", title: "Wedding Ceremony", desc: "The ceremony begins. We exchange vows surrounded by the people we love most." },
+            { time: "13:30", title: "Guests Arrive", desc: "Please arrive 30 minutes before the ceremony begins. Waterfalls Place, Silverest 13935, Off Great East Road, Lusaka." },
+            { time: "14:00", title: "Wedding Ceremony", desc: "The ceremony begins. We exchange vows surrounded by the people we love most." },
             { time: "After", title: "Cocktail Reception", desc: "Drinks and canapés in the garden as the afternoon sun sets over Lusaka." },
             { time: "Evening", title: "Dinner & Party", desc: "A celebration dinner followed by dancing into the African night." },
         ],
