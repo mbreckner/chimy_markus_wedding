@@ -2,7 +2,7 @@ export const de = {
     nav: {
         home: "Start",
         wedding: "Hochzeit",
-        travel: "Reise",
+        travel: "Reisen",
         qa: "FAQ",
         guestbook: "Gästebuch",
     },
@@ -55,7 +55,7 @@ export const de = {
                 number: "01",
                 flag: "Vor der Hochzeit · Sambia",
                 name: "Lusaka & Sambia",
-                duration: "Ca 1.–6. September - 14./15. September",
+                duration: "2./3. - 14./15. September",
                 desc: "Wir planen, irgendwann zwischen dem 1. und 6. September in Lusaka einzutreffen — wer zu dieser Zeit schon vor Ort ist, den treffen wir sehr gerne auf einen Kaffee oder ein Sundowner-Drink, bevor die Feierlichkeiten beginnen. Sambia hat einiges zu bieten für alle, die früher anreisen und die Zeit nutzen möchten:",
                 howToGet: "",
                 highlights: [
@@ -99,8 +99,8 @@ export const de = {
                 number: "04",
                 flag: "Nach der Hochzeit · Tansania",
                 name: "Sansibar",
-                duration: "21./22. September, ca. eine Woche",
-                desc: "Um den 21. oder 22. geht es nach Sansibar — eine Woche zum Entschleunigen. Weißer Sand, warmes Wasser und so viel oder so wenig Programm, wie man möchte.",
+                duration: "21./22. September - 01./02. Oktober, ca. 10 Tage",
+                desc: "Um den 21. oder 22. geht es nach Sansibar — eine Woche zum Entschleunigen. Weißer Sand, warmes Wasser, Kite surfen und tauchen und so viel oder so wenig Programm, wie man möchte.",
                 howToGet: "Fahrt nach Arusha (3,5–4,5 Stunden), dann ein kurzer Flug nach Sansibar.",
                 highlights: [
                     "Kitesurfen, Tauchen und Schnorcheln in kristallklarem Wasser.",

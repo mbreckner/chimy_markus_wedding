@@ -2,7 +2,7 @@ export const en = {
     nav: {
         home: "Home",
         wedding: "Wedding",
-        travel: "Journey",
+        travel: "Traveling",
         qa: "Q & A",
         guestbook: "Guestbook",
     },
@@ -55,7 +55,7 @@ export const en = {
                 number: "01",
                 flag: "Before the wedding · Zambia",
                 name: "Lusaka & Zambia",
-                duration: "Around 1–6th September - 14/15th September",
+                duration: "2/3th - 14/15th September",
                 desc: "We're planning to arrive in Lusaka sometime between the 1st and 6th of September — if you happen to be around at that time, we'd love to meet up for a coffee or a sundowner before the celebrations begin. \n Zambia has plenty to offer for those arriving early and looking to make the most of their time:",
                 howToGet: "",
                 highlights: [
@@ -70,7 +70,7 @@ export const en = {
                 number: "02",
                 flag: "After the wedding · Tanzania",
                 name: "Serengeti National Park",
-                duration: "14/15th - 19/20th September, around 4 nights",
+                duration: "14/15th - 19/20th September, ~ 4 nights",
                 desc: " The most iconic safari destinations on earth. Three full days in the park feels like the right amount of time to really take it all in.",
                 howToGet: "Fly from Lusaka to Arusha / Kilimanjaro Airport (JRO) — connections typically run via Nairobi, Addis Ababa, or Dar es Salaam. From the airport you can either hop on a small charter plane (roughly 1 hour), or drive the 325 km — a scenic but long ride of around 8 hours.",
                 highlights: [
@@ -84,7 +84,7 @@ export const en = {
                 number: "03",
                 flag: "After the wedding · Tanzania",
                 name: "Ngorongoro Highlands",
-                duration: "19/20th - 21/22th September, around 2 night",
+                duration: "19/20th - 21/22th September, ~ 2 nights",
                 desc: "We plan to spend 2 nights and 1 full day in the Ngorongoro Highlands — a beautiful stretch of highland with Maasai culture, dramatic volcanic craters, and a landscape unlike anything else on the trip.",
                 howToGet: "From the Serengeti, it's a 4–5 hour drive out of the national park to the Empakaai / Bulati Gebiet — you can see safari animals on the way, this tour is often included in the safari package",
                 highlights: [
@@ -99,8 +99,8 @@ export const en = {
                 number: "04",
                 flag: "After the wedding · Tanzania",
                 name: "Zanzibar",
-                duration: "21/22th of September, around one week",
-                desc: "Around the 21th or 22st we'll make our way to Zanzibar for a week of slowing down — white sand, warm water, and as much or as little as you feel like doing.",
+                duration: "21/22th September - 1/2th October, ~ 10 days",
+                desc: "Around the 21th or 22st we'll make our way to Zanzibar for a week of slowing down — white sand, warm water, kite surfing and diving and as much or as little as you feel like doing.",
                 howToGet: "Drive to Arusha (3.5–4.5 hours), then a short flight over to Zanzibar.",
                 highlights: [
                     "Kitesurfing, diving, and snorkeling in crystal-clear waters.",
