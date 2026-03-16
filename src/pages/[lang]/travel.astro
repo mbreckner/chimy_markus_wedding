@@ -150,12 +150,16 @@ const tv = tr.travel;
 
         sections.forEach(s => observer.observe(s));
 
-        // Click to scroll
+        // Click to scroll — offset for sticky nav + stepper
         navItems.forEach(item => {
             item.addEventListener('click', e => {
                 e.preventDefault();
                 const target = document.getElementById('dest-' + item.dataset.dest);
-                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                if (!target) return;
+                const navH = (document.querySelector('nav') as HTMLElement)?.offsetHeight ?? 60;
+                const stepperH = (document.getElementById('journey-nav') as HTMLElement)?.offsetHeight ?? 0;
+                const top = target.getBoundingClientRect().top + window.scrollY - navH - stepperH - 16;
+                window.scrollTo({ top, behavior: 'smooth' });
             });
         });
     </script>
