@@ -99,8 +99,8 @@ export const en = {
                 number: "04",
                 flag: "After the wedding · Tanzania",
                 name: "Zanzibar",
-                duration: "21/22th of September, ~ one week",
-                desc: "Around the 21th or 22st we'll make our way to Zanzibar for a week of slowing down — white sand, warm water, and as much or as little as you feel like doing.",
+                duration: "21/22th September - 1/2th October, ~ 10 days",
+                desc: "Around the 21th or 22st we'll make our way to Zanzibar for a week of slowing down — white sand, warm water, kite surfing and diving and as much or as little as you feel like doing.",
                 howToGet: "Drive to Arusha (3.5–4.5 hours), then a short flight over to Zanzibar.",
                 highlights: [
                     "Kitesurfing, diving, and snorkeling in crystal-clear waters.",
