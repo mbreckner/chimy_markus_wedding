@@ -84,16 +84,6 @@ function pageUrl(pageLang: string, pageSlug: string) {
 </footer>
 
 <script>
-  // On first visit, redirect to browser language
-  if (!sessionStorage.getItem('lang-redirected')) {
-    sessionStorage.setItem('lang-redirected', 'true');
-    const browserLang = navigator.language.toLowerCase().startsWith('de') ? 'de' : 'en';
-    const pathLang = window.location.pathname.split('/')[1];
-    if (pathLang !== browserLang) {
-      const rest = window.location.pathname.split('/').slice(2).join('/');
-      window.location.replace(`/${browserLang}${rest ? '/' + rest : ''}`);
-    }
-  }
   const toggle = document.getElementById('nav-toggle');
   const drawer = document.getElementById('nav-drawer');
   toggle?.addEventListener('click', () => {

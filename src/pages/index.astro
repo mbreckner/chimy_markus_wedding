@@ -1,4 +1,11 @@
----
-// Redirect root / to /en (browser language detection happens in Layout.astro)
-return Astro.redirect('/en');
----
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <script>
+    const lang = navigator.language.toLowerCase().startsWith('de') ? 'de' : 'en';
+    window.location.replace('/' + lang);
+  </script>
+</head>
+<body></body>
+</html>
