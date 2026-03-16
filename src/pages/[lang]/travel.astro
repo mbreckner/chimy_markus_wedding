@@ -24,13 +24,37 @@ const tv = tr.travel;
         .dest-desc { font-size: 13px; color: var(--text-mid); line-height: 1.8; margin-bottom: 0.75rem; }
         .dest-how-to-get { font-size: 12px; color: var(--text-mid); line-height: 1.8; margin-bottom: 0.75rem; padding: 0.6rem 0.9rem; border-left: 2px solid var(--divider); }
         .dest-how-to-get-label { font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-light); margin-bottom: 0.2rem; }
-        .dest-highlights { list-style: none; padding: 0; margin: 0 0 0.75rem 0; }
-        .dest-highlights li { font-size: 13px; color: var(--text-mid); line-height: 1.7; padding: 0.2rem 0 0.2rem 1.1rem; position: relative; }
-        .dest-highlights li::before { content: "–"; position: absolute; left: 0; color: var(--gold); }
+        .dest-highlights { list-style: none; padding: 0; margin: 0 0 0.75rem 0; border-top: 1px solid var(--divider); }
+        .dest-highlights li { font-size: 13px; color: var(--text-mid); line-height: 1.7; padding: 0.55rem 0; border-bottom: 1px solid var(--divider); }
+        .highlight-title { color: var(--text-dark); font-weight: 500; }
+        .dest-itinerary { margin: 1rem 0 0.5rem; }
+        .itin-label { font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-light); margin-bottom: 0.8rem; }
+        .itin-step { display: grid; grid-template-columns: 72px 16px 1fr; gap: 0 0.6rem; }
+        .itin-date { font-size: 10px; color: var(--text-light); padding-top: 3px; text-align: right; white-space: nowrap; line-height: 1.4; }
+        .itin-spine { display: flex; flex-direction: column; align-items: center; }
+        .itin-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; margin-top: 3px; }
+        .itin-dot--booked { background: #4a7c59; border: 1.5px solid #4a7c59; }
+        .itin-dot--open { background: var(--ivory); border: 1.5px solid #bbb; }
+        .itin-connector { width: 1px; flex: 1; background: var(--divider); margin: 3px 0 0; min-height: 10px; }
+        .itin-content { padding-bottom: 0.85rem; }
+        .itin-title-row { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+        .itin-title { font-size: 13px; color: var(--text-dark); font-weight: 500; line-height: 1.4; }
+        .itin-badge { font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 7px; }
+        .itin-badge--booked { color: #4a7c59; background: #eef4f0; border: 0.5px solid #4a7c59; }
+        .itin-badge--open { color: var(--gold); background: var(--gold-light); border: 0.5px solid var(--gold); }
+        .itin-detail { font-size: 11px; color: var(--text-mid); margin-top: 0.2rem; line-height: 1.5; letter-spacing: 0.01em; }
+        .itin-note { font-size: 12px; color: var(--text-mid); line-height: 1.75; margin-top: 0.4rem; font-style: italic; }
         .dest-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 0.75rem; }
         .dest-badge { padding: 3px 10px; border: 0.5px solid var(--divider); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-light); }
         .tbc-badge { padding: 3px 10px; background: var(--gold-light); border: 0.5px solid var(--gold); font-size: 10px; letter-spacing: 0.08em; color: var(--gold); }
-        @media (max-width: 640px) { .destination { grid-template-columns: 1fr; } .dest-number { display: none; } }
+        .journey-nav { position: sticky; top: 60px; z-index: 50; background: var(--ivory); border-bottom: 1px solid var(--divider); display: flex; margin: 0 -2rem 0; padding: 0 2rem; }
+        .journey-nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 0.35rem; padding: 0.7rem 0.5rem; text-decoration: none; cursor: pointer; position: relative; transition: opacity 0.2s; }
+        .journey-nav-item:not(:last-child)::after { content: ''; position: absolute; top: 1.05rem; left: calc(50% + 14px); right: calc(-50% + 14px); height: 1px; background: var(--divider); }
+        .journey-nav-dot { width: 22px; height: 22px; border-radius: 50%; border: 1px solid var(--divider); display: flex; align-items: center; justify-content: center; font-size: 9px; letter-spacing: 0.05em; color: var(--text-light); background: var(--ivory); z-index: 1; transition: all 0.25s; }
+        .journey-nav-label { font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-light); text-align: center; line-height: 1.3; transition: color 0.25s; }
+        .journey-nav-item.is-active .journey-nav-dot { background: var(--burgundy); border-color: var(--burgundy); color: var(--ivory); }
+        .journey-nav-item.is-active .journey-nav-label { color: var(--burgundy); }
+        @media (max-width: 640px) { .destination { grid-template-columns: 1fr; } .dest-number { display: none; } .itin-date { display: none; } .itin-step { grid-template-columns: 16px 1fr; } .journey-nav { margin: 0 -1rem; padding: 0 1rem; } .journey-nav-label { display: none; } .journey-nav-item { padding: 0.7rem 0; } }
     </style>
 
     <div class="page-header">
@@ -38,10 +62,20 @@ const tv = tr.travel;
         <h1 class="page-title">{tv.title}</h1>
     </div>
 
+    <nav class="journey-nav" id="journey-nav">
+        {tv.destinations.map(dest => (
+            <a class="journey-nav-item" data-dest={dest.number} href={`#dest-${dest.number}`}>
+                <div class="journey-nav-dot">{dest.number}</div>
+                <div class="journey-nav-label">{dest.name}</div>
+            </a>
+        ))}
+    </nav>
+
     <div class="content">
         <p class="travel-intro">{tv.intro}</p>
+        <div class="note-box" style="margin-bottom: 2rem"><p>{tv.note}</p></div>
         {tv.destinations.map(dest => (
-                <div class="destination">
+                <div class="destination" id={`dest-${dest.number}`}>
                     <div class="dest-number">{dest.number}</div>
                     <div>
                         <p class="dest-flag">{dest.flag}</p>
@@ -56,9 +90,38 @@ const tv = tr.travel;
                                 <p>{dest.howToGet}</p>
                             </div>
                         )}
+                        {dest.itinerary.length > 0 && (
+                            <div class="dest-itinerary">
+                                <p class="itin-label">{tv.itineraryLabel}</p>
+                                {dest.itinerary.map((step, i) => (
+                                    <div class="itin-step">
+                                        <div class="itin-date">{step.date}</div>
+                                        <div class="itin-spine">
+                                            <div class={`itin-dot itin-dot--${step.status}`}></div>
+                                            {i < dest.itinerary.length - 1 && <div class="itin-connector"></div>}
+                                        </div>
+                                        <div class="itin-content">
+                                            <div class="itin-title-row">
+                                                <span class="itin-title">{step.title}</span>
+                                                <span class={`itin-badge itin-badge--${step.status}`}>
+                                                    {step.status === 'booked' ? tv.itineraryBooked : tv.itineraryOpen}
+                                                </span>
+                                            </div>
+                                            {step.detail && <p class="itin-detail">{step.detail}</p>}
+                                            {step.note && <p class="itin-note">{step.note}</p>}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
                         {dest.highlights.length > 0 && (
                             <ul class="dest-highlights">
-                                {dest.highlights.map(h => <li>{h}</li>)}
+                                {dest.highlights.map(h => {
+                                    const [title, ...rest] = h.split(' — ');
+                                    return rest.length > 0
+                                        ? <li><span class="highlight-title">{title}</span>{' — '}{rest.join(' — ')}</li>
+                                        : <li>{h}</li>;
+                                })}
                             </ul>
                         )}
                         <div class="dest-tags">
@@ -68,6 +131,32 @@ const tv = tr.travel;
                     </div>
                 </div>
         ))}
-        <div class="note-box" style="margin-top:1rem"><p>{tv.note}</p></div>
     </div>
+    <script>
+        const navItems = document.querySelectorAll<HTMLElement>('.journey-nav-item');
+        const sections = document.querySelectorAll<HTMLElement>('.destination');
+
+        // Scrollspy
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.id.replace('dest-', '');
+                    navItems.forEach(item => {
+                        item.classList.toggle('is-active', item.dataset.dest === id);
+                    });
+                }
+            });
+        }, { rootMargin: '-20% 0px -70% 0px' });
+
+        sections.forEach(s => observer.observe(s));
+
+        // Click to scroll
+        navItems.forEach(item => {
+            item.addEventListener('click', e => {
+                e.preventDefault();
+                const target = document.getElementById('dest-' + item.dataset.dest);
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+    </script>
 </Layout>
