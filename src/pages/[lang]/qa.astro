@@ -30,6 +30,8 @@ const gb = tr.guestbook;
         :global(.qa-a ul li) { list-style-type: disc; line-height: 1.6; margin-bottom: 0.3em; }
         :global(.qa-a ul li:last-child) { margin-bottom: 0; }
         :global(.qa-a .section-title) { color: var(--text-dark); font-weight: 500; margin: 0.75em 0 0.4em; }
+        .qa-category-label { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin: 2.5rem 0 0.1rem; font-weight: 400; }
+        .qa-category-label:first-child { margin-top: 0; }
     </style>
 
     <div class="page-header">
@@ -39,14 +41,19 @@ const gb = tr.guestbook;
 
     <div class="content">
         <div id="qa-list">
-            {qa.items.map(item => (
-                    <div class="qa-item">
-                        <div class="qa-q" onclick="this.parentElement.classList.toggle('open'); this.querySelector('.qa-toggle').textContent = this.parentElement.classList.contains('open') ? '×' : '+'">
-                            {item.q}
-                            <span class="qa-toggle">+</span>
+            {qa.categories.map(cat => (
+                <>
+                    <p class="qa-category-label">{cat.label}</p>
+                    {cat.items.map(item => (
+                        <div class="qa-item">
+                            <div class="qa-q" onclick="this.parentElement.classList.toggle('open'); this.querySelector('.qa-toggle').textContent = this.parentElement.classList.contains('open') ? '×' : '+'">
+                                {item.q}
+                                <span class="qa-toggle">+</span>
+                            </div>
+                            <div class="qa-a" set:html={item.a} />
                         </div>
-                        <div class="qa-a" set:html={item.a} />
-                    </div>
+                    ))}
+                </>
             ))}
         </div>
 
