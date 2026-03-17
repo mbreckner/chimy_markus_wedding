@@ -163,6 +163,13 @@ export const en = {
             { name: "Sophie & Thomas", text: "Africa, safari, and forever — what a way to start a marriage. We cannot wait to celebrate with you!", date: "March 2026" },
         ],
     },
+    rsvp: {
+        eyebrow: "RSVP",
+        title: "Will you be joining us?",
+        deadline: "30 June 2026",
+        body: "Just reach out to us on WhatsApp — a quick message is all we need.",
+        deadlineLabel: "Please respond by",
+    },
     footer: {
         names: "Chimwemwe & Markus",
         date: "12 · 09 · 2026 · Lusaka, Zambia",

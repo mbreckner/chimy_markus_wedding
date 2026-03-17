@@ -56,9 +56,3 @@ Feel free to check [our documentation](https://docs.astro.build) or jump into ou
 
 ### QA-Section
 - Post email when someone has a new question
-
-### RSVP
-1. Add information that the link will follow soon
-2. Add the link itself when available
-
-

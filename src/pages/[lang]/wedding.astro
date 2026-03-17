@@ -10,6 +10,7 @@ export function getStaticPaths() {
 const { lang } = Astro.params as { lang: Lang };
 const tr = t(lang);
 const w = tr.wedding;
+const rsvp = tr.rsvp;
 ---
 
 <Layout lang={lang} page="wedding">
@@ -26,6 +27,13 @@ const w = tr.wedding;
         .t-title-row { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.3rem; }
         .tbc-badge { font-size: 10px; letter-spacing: 0.08em; color: var(--gold); border: 0.5px solid var(--gold); padding: 2px 7px; background: var(--gold-light, #fdf8f0); }
         .t-desc { font-size: 13px; color: var(--text-mid); line-height: 1.7; }
+        .rsvp-section { margin-top: 3.5rem; padding: 3rem 0 0.5rem; text-align: center; border-top: 1px solid var(--divider); }
+        .rsvp-eyebrow { font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; }
+        .rsvp-title { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 300; font-style: italic; color: var(--burgundy); margin-bottom: 1rem; }
+        .rsvp-rule { width: 32px; height: 1px; background: var(--gold); margin: 0 auto 1.5rem; }
+        .rsvp-date { font-family: 'Cormorant Garamond', serif; font-size: 48px; font-weight: 300; color: var(--burgundy); line-height: 1; margin-bottom: 2.5rem; }
+        .rsvp-body { font-size: 13px; color: var(--text-mid); line-height: 1.8; margin-bottom: 1.5rem; }
+        .rsvp-deadline-label { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-light); margin-bottom: 0.4rem; }
     </style>
 
     <div class="page-header">
@@ -60,6 +68,15 @@ const w = tr.wedding;
                         <p class="info-card-content" set:html={card.content} />
                     </div>
             ))}
+        </div>
+
+        <div class="rsvp-section">
+            <p class="rsvp-eyebrow">{rsvp.eyebrow}</p>
+            <p class="rsvp-title">{rsvp.title}</p>
+            <div class="rsvp-rule"></div>
+            <p class="rsvp-body">{rsvp.body}</p>
+            <p class="rsvp-deadline-label">{rsvp.deadlineLabel}</p>
+            <p class="rsvp-date">{rsvp.deadline}</p>
         </div>
 
         <div class="note-box" style="margin-top:2.5rem">
