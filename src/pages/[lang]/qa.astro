@@ -20,7 +20,16 @@ const gb = tr.guestbook;
         .qa-toggle { width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--divider); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--gold); font-size: 20px; transition: all 0.2s; background: var(--ivory); line-height: 1; }
         .qa-item.open .qa-toggle { background: var(--burgundy); color: var(--ivory); border-color: var(--burgundy); }
         .qa-a { font-size: 14px; color: var(--text-mid); line-height: 1.8; max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.2s; }
-        .qa-item.open .qa-a { max-height: 300px; padding-bottom: 1.25rem; }
+        .qa-item.open .qa-a { max-height: 1200px; padding-bottom: 1.25rem; }
+        :global(.qa-a p) { margin: 0 0 0.75em; }
+        :global(.qa-a p:last-child) { margin-bottom: 0; }
+        :global(.qa-a .bullet-block) { margin: 0 0 0.75em; }
+        :global(.qa-a .bullet-block div) { line-height: 1.6; margin-bottom: 0.3em; }
+        :global(.qa-a .bullet-block div:last-child) { margin-bottom: 0; }
+        :global(.qa-a ul) { margin: 0 0 0.75em; padding-left: 1.3em; }
+        :global(.qa-a ul li) { list-style-type: disc; line-height: 1.6; margin-bottom: 0.3em; }
+        :global(.qa-a ul li:last-child) { margin-bottom: 0; }
+        :global(.qa-a .section-title) { color: var(--text-dark); font-weight: 500; margin: 0.75em 0 0.4em; }
     </style>
 
     <div class="page-header">
@@ -36,7 +45,7 @@ const gb = tr.guestbook;
                             {item.q}
                             <span class="qa-toggle">+</span>
                         </div>
-                        <div class="qa-a">{item.a}</div>
+                        <div class="qa-a" set:html={item.a} />
                     </div>
             ))}
         </div>

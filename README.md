@@ -43,7 +43,25 @@ All commands are run from the root of the project, from a terminal:
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
 
 ## TODO
-- how does QA-question posting works?
-- maybe a section where people can vote if they are in for any of the travel plans?
-- TRAVEL section. Maybe more information about each step, about flights, lodges, etc.
-- Send Email for new question in QA
+
+### Text changes
+- Add wedding end time (02:00 am)
+- Make section for Lusaka smaller or remove completely and give recommendations for where to travel
+- Tell them areas where to stay in Lusaka, close to the wedding, closer to the city, safe neighborhoods, etc.
+- Is the costs of our flights relevant?
+- Weather in Zambia and Tanzania, add as question to Q&A
+- Should we create categories for Q&A?
+- Gifts? Ask Claude if we should add anything here
+
+### Travel planning
+- Add votings or something for travel plans
+- Create a section for travel plans where people can comment?
+
+### QA-Section
+- Post email when someone has a new question
+
+### RSVP
+1. Add information that the link will follow soon
+2. Add the link itself when available
+
+

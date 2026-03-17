@@ -33,8 +33,9 @@ export const de = {
         timeline: [
             { time: "13:30", title: "Gäste treffen ein", desc: "Bitte 30 Minuten vor Beginn der Zeremonie eintreffen. Waterfalls Place, Silverest 13935, Off Great East Road, Lusaka." },
             { time: "14:00", title: "Trauungszeremonie", desc: "Die Zeremonie beginnt. Wir sprechen unser Eheversprechen umgeben von den Menschen, die wir am meisten lieben." },
-            { time: "Danach", title: "Cocktailempfang", desc: "Getränke und Häppchen im Garten, während die Nachmittagssonne über Lusaka untergeht." },
-            { time: "Abends", title: "Abendessen & Party", desc: "Ein festliches Abendessen gefolgt von Tanzen in die afrikanische Nacht." },
+            { time: "Danach", title: "Cocktailempfang", desc: "Getränke und Häppchen im Garten, während die Nachmittagssonne über Lusaka untergeht.", tbc: true },
+            { time: "Abends", title: "Abendessen & Party", desc: "Ein festliches Abendessen gefolgt von Tanzen in die afrikanische Nacht.", tbc: true },
+            { time: "~02:00", title: "Ende der Feierlichkeiten", desc: "Das offizielle Ende der Hochzeitsfeier. Kommt gut nach Hause!" },
         ],
         cards: {
             venue: { label: "Veranstaltungsort", content: "<strong>Waterfalls Place</strong><br>Silverest 13935<br>Off Great East Road<br>Lusaka, Sambia" },
@@ -95,13 +96,12 @@ export const de = {
                 desc: "Von der Serengeti fahren wir ostwärts in die uralten Vulkanhochländer rund um Karatu und den Ngorongoro — ein dramatischer Szenenwechsel, ein langsameres Tempo, und zwei Nächte in Karatu, bevor wir nach Sansibar weiterfliegen.",
                 howToGet: "",
                 highlights: [],
-                tags: ["Massai-Kultur", "Wandern", "Hochland"],
+                tags: ["Vulkankrater", "Wandern", "Hochland"],
                 tbc: [],
                 itinerary: [
                     { date: "20. Sep", title: "Fahrt: Seronera → Karatu", detail: "~4–5 Std. · Wildtiere auf dem Weg · bei einer Gruppe können wir Jeeps teilen, um die Kosten pro Person zu senken", status: "open", note: "", flight: null },
                     { date: "20.–22. Sep", title: "Patamu Restaurant, Lodge & Safaris, Karatu", detail: "2 Nächte im Hochland", status: "booked", note: "", flight: null },
                     { date: "21. Sep", title: "Empakaai-Krater-Wanderung", detail: "Ganztages-Wanderung · Abstieg in die Caldera · Kratersee & Aussicht über das Rift Valley", status: "open", note: "Eine ganztägige Wanderung hinunter in einen uralten Krater — steile Pfade durch Wald, die sich zu einem Sodasee öffnen, der Heimat grosser Flamingo-Schwärme ist, mit Blick auf den Vulkan Ol Doinyo Lengai und das Grosse Rifttal.", flight: null },
-                    { date: "21. Sep", title: "Besuch eines Massai-Dorfes", detail: "Wandersafari oder Besuch eines Maasai-Bomas", status: "open", note: "Besuch eines Maasai-Bomas — eines traditionellen Familiengehöfts — um die Gemeinschaft kennenzulernen, mehr über ihre Lebensweise zu erfahren und das Hochland aus einer ganz anderen Perspektive zu erleben.", flight: null },
                     { date: "22. Sep", title: "Fahrt nach Arusha + Flug nach Sansibar", detail: "Details folgen · gemeinsamer Transport für Gruppen kann organisiert werden", status: "open", note: "", flight: null },
                 ],
             },
@@ -133,7 +133,9 @@ export const de = {
             { q: "Wie komme ich zum Veranstaltungsort?", a: "Waterfalls Place befindet sich in Silverest 13935, Off Great East Road, Lusaka. Für die An- und Abreise empfehlen wir die lokalen Taxi-Apps Yango oder Ulendo — beide zuverlässig und einfach zu nutzen in Lusaka." },
             { q: "Kann ich bei der Reise nach Tansania mitmachen?", a: "Ja! Ihr seid herzlich eingeladen, die gesamte Reise oder nur Teile davon mitzumachen. Alle Updates und Details — einschließlich Informationen zu Flügen, Unterkunft und mehr — werden im Tab „Reisen\" upgedatet. Jeder kann die Abschnitte, bei denen er dabei sein möchte, eigenständig buchen.." },
             { q: "Wo soll ich in Lusaka übernachten?", a: "Die Hochzeitslocation befindet sich direkt neben dem internationalen Flughafen, sodass man ganz bequem in der Nähe übernachten kann — dort gibt es einige Lodges in verschiedenen Preisklassen. Wer lieber etwas von der Stadt sehen möchte, findet auch in Lusaka selbst gute Optionen. Auf Booking.com und Airbnb gibt es eine große Auswahl für jedes Budget. Falls wir konkrete Empfehlungen haben, werden wir diese hier teilen." },
-            { q: "Wie komme ich in Lusaka von A nach B?", a: "In Lusaka kommt man am einfachsten mit Ulendo oder Yango von A nach B — beide funktionieren wie Uber und sind rum um die Uhr im Einsatz. Bitte beachten: Bezahlt wird nur in bar."}
+            { q: "Wie komme ich in Lusaka von A nach B?", a: "In Lusaka kommt man am einfachsten mit Ulendo oder Yango von A nach B — beide funktionieren wie Uber und sind rum um die Uhr im Einsatz. Bitte beachten: Bezahlt wird nur in bar."},
+            { q: "Wie wird das Wetter bei der Hochzeit in Sambia sein?", a: "<p>September ist eine der besten Reisezeiten in Sambia. Ihr könnt mit warmem, sonnigem und trockenem Wetter rechnen — ideal für unsere Hochzeitsfeier.</p><div class=\"bullet-block\"><div>🌡️ Tagestemperaturen: ca. 25–30°C</div><div>🌙 Abends: kühler, ca. 10–15°C</div><div>☀️ Regen: sehr unwahrscheinlich (Trockenzeit)</div><div>🌿 Insgesamt: angenehm, komfortabel und nicht zu schwül</div></div><p>Was ihr einpacken solltet:</p><ul><li>Leichte, luftige Kleidung für den Tag</li><li>Eine leichte Jacke oder ein Tuch für den Abend</li></ul>" },
+            { q: "Welches Wetter erwartet uns auf Safari und in Sansibar?", a: "<p>Ihr könnt mit hervorragenden Reisebedingungen rechnen — mit einem wichtigen Unterschied zwischen Safari und Küste.</p><p class=\"section-title\">🐘 Safari (Nordtansania – Serengeti &amp; Ngorongoro)</p><p>September ist einer der besten Monate für eine Safari:</p><div class=\"bullet-block\"><div>🌡️ Tagsüber: 22–28°C</div><div>🌙 Frühe Morgen &amp; Abende: kann kühl werden (bis zu 5–10°C im Ngorongoro)</div><div>☀️ Wetter: trocken, sonnig, kaum Regen</div><div>🌾 Bedingungen: trockene Landschaft → fantastische Sichtbarkeit für Wildtiere</div><div>👉 Perfekt für Pirschfahrten, aber warme Schicht für frühe Morgenstunden nicht vergessen</div></div><p class=\"section-title\">🏝️ Sansibar (Strand &amp; Tauchen)</p><p>Sansibar ist wärmer und tropischer:</p><div class=\"bullet-block\"><div>🌡️ Tagsüber: 26–32°C</div><div>🌊 Meer: warm und ideal zum Schwimmen &amp; Tauchen</div><div>💧 Luftfeuchtigkeit: höher als auf Safari, aber meist mit angenehmer Meeresbrise</div><div>🌧️ Regen: sehr unwahrscheinlich</div><div>👉 Ideales Strandwetter, aber es kann warm und schwül sein</div></div>" }
         ],
         formTitle: "Noch eine Frage?",
         formDesc: "Nicht gefunden, was ihr sucht? Schickt uns eure Frage und wir ergänzen sie in der Liste.",

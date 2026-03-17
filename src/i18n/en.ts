@@ -16,9 +16,9 @@ export const en = {
         statDay: "Wedding Day",
         statCity: "Lusaka",
         statCountries: "Countries to explore",
-        introQuote: "We are getting married in <em>Lusaka</em> and would love to share this journey with you — from Zambia across Tanzania, all the way to the shores of <em>Zanzibar.</em>",
+        introQuote: "We are getting married in <em>Lusaka</em> and would love to share this trip with you — from Zambia across Tanzania, all the way to the shores of <em>Zanzibar.</em>",
         introSub: "Use the navigation above to find everything you need — wedding details, travel plans, answers to your questions, and a place to leave us a message.",
-        journeyLabel: "The journey",
+        journeyLabel: "Traveling",
         journeyTitle: "Plans around the wedding",
         stops: [
             { letter: "L", name: "Lusaka", detail: "Zambia · Wedding" },
@@ -33,8 +33,9 @@ export const en = {
         timeline: [
             { time: "13:30", title: "Guests Arrive", desc: "Please arrive 30 minutes before the ceremony begins. Waterfalls Place, Silverest 13935, Off Great East Road, Lusaka." },
             { time: "14:00", title: "Wedding Ceremony", desc: "The ceremony begins. We exchange vows surrounded by the people we love most." },
-            { time: "After", title: "Cocktail Reception", desc: "Drinks and canapés in the garden as the afternoon sun sets over Lusaka." },
-            { time: "Evening", title: "Dinner & Party", desc: "A celebration dinner followed by dancing into the African night." },
+            { time: "After", title: "Cocktail Reception", desc: "Drinks and canapés in the garden as the afternoon sun sets over Lusaka.", tbc: true },
+            { time: "Evening", title: "Dinner & Party", desc: "A celebration dinner followed by dancing into the African night.", tbc: true },
+            { time: "~02:00", title: "End of Celebration", desc: "The official end of the wedding celebrations. Safe travels home!" },
         ],
         cards: {
             venue: { label: "Venue", content: "<strong>Waterfalls Place</strong><br>Silverest 13935<br>Off Great East Road<br>Lusaka, Zambia" },
@@ -46,12 +47,12 @@ export const en = {
     },
     travel: {
         eyebrow: "September – October 2026",
-        title: "The Journey",
+        title: "Traveling",
         howToGetLabel: "Getting there",
         itineraryLabel: "Itinerary",
         itineraryBooked: "Booked",
         itineraryOpen: "Still planning",
-        intro: "A rough outline of the journey around the wedding — shared so you can plan ahead. Join us for all of it, or just the parts that work for you.",
+        intro: "A rough outline of the trip around the wedding — shared so you can plan ahead. Join us for all of it, or just the parts that work for you.",
         note: "Some things are already confirmed and marked as Booked. Everything else is Still planning — dates and details may change as things come together. Each leg of the trip can be booked independently, and we'll share everything you need here as it's confirmed. The one thing worth coordinating is transfers: on the longer drives between destinations it can make sense to travel together and split the cost of a shared jeep.",
         destinations: [
             {
@@ -95,13 +96,12 @@ export const en = {
                 desc: "From the Serengeti, we head east into the ancient volcanic highlands around Karatu and Ngorongoro — a dramatic change of scenery, a slower pace, and two nights based in Karatu before flying on to Zanzibar.",
                 howToGet: "",
                 highlights: [],
-                tags: ["Maasai Culture", "Hiking", "Highlands"],
+                tags: ["Volcanic crater", "Hiking", "Highlands"],
                 tbc: [],
                 itinerary: [
                     { date: "20 Sep", title: "Drive: Seronera → Karatu", detail: "~4–5 hrs · game viewing en route · if we're travelling as a group we can organise shared jeeps to keep costs down per person", status: "open", note: "", flight: null },
                     { date: "20–22 Sep", title: "Patamu Restaurant, Lodge & Safaris, Karatu", detail: "2 nights in the highlands", status: "booked", note: "", flight: null },
                     { date: "21 Sep", title: "Empakaai Crater hike", detail: "Full day · descent into the caldera · crater lake & Rift Valley views", status: "open", note: "A full-day hike down into an ancient caldera — steep trails through forest, opening out onto a soda lake at the bottom, home to flocks of flamingos, with views stretching to Ol Doinyo Lengai volcano and across the Great Rift Valley.", flight: null },
-                    { date: "21 Sep", title: "Maasai village visit", detail: "Walking safari or Boma visit", status: "open", note: "A visit to a local Maasai Boma — a traditional family compound — to meet the community, learn about their way of life, and see the highlands from a very different perspective.", flight: null },
                     { date: "22 Sep", title: "Drive to Arusha + Flight to Zanzibar", detail: "Details to follow · shared transport can be arranged for groups", status: "open", note: "", flight: null },
                 ],
             },
@@ -133,7 +133,9 @@ export const en = {
             { q: "How do I get to the venue?", a: "Waterfalls Place is located at Silverest 13935, Off Great East Road, Lusaka. For getting there and back, we recommend local taxi apps Yango or Ulendo — both reliable and easy to use in Lusaka." },
             { q: "Can I join the trip to Tanzania?", a: "Yes! You are more than welcome to join us for the entire trip or just parts of it. Updates and details — including information on flights, accommodation, and more — will be shared in the Travel tab as plans are confirmed. Everyone can then book independently for whichever parts they'd like to join." },
             { q: "Where should I stay in Lusaka?", a: "The wedding venue is located right next to the international airport, making it very convenient to stay nearby — there are several lodges in various price ranges in the area. Those who'd prefer to explore the city can find plenty of good options in Lusaka itself as well. Booking.com and Airbnb offer a wide selection for every budget. If we have any specific recommendations, we'll share them here." },
-            { q: "How do I get around in Lusaka?", a: "Getting around Lusaka is easiest with Ulendo or Yango — both work just like Uber and the operate 24h. Please note: payment is cash only."}
+            { q: "How do I get around in Lusaka?", a: "Getting around Lusaka is easiest with Ulendo or Yango — both work just like Uber and the operate 24h. Please note: payment is cash only."},
+            { q: "What will the weather be like for the wedding in Zambia?", a: "<p>September is one of the best times of the year to visit Zambia. You can expect warm, sunny, and dry weather, making it perfect for our wedding celebrations.</p><div class=\"bullet-block\"><div>🌡️ Daytime temperatures: around 25–30°C</div><div>🌙 Evenings: cooler, around 10–15°C</div><div>☀️ Rain: very unlikely (dry season)</div><div>🌿 Overall: pleasant, comfortable, and not too humid</div></div><p>It's ideal for outdoor events, so you can look forward to beautiful conditions throughout the day.</p><p>What to bring:</p><ul><li>Light, breathable clothing for the day</li><li>A light jacket or shawl for the evening</li></ul>" },
+            { q: "What weather can we expect for the safari and Zanzibar trip?", a: "<p>You can expect excellent travel conditions throughout — but with an important difference between safari and the coast.</p><p class=\"section-title\">🐘 Safari (Northern Tanzania – Serengeti &amp; Ngorongoro)</p><p>September is one of the best months for safari:</p><div class=\"bullet-block\"><div>🌡️ Daytime: 22–28°C</div><div>🌙 Early mornings &amp; evenings: can be cool (as low as 5–10°C in Ngorongoro)</div><div>☀️ Weather: dry, sunny, almost no rain</div><div>🌾 Conditions: dry landscape → amazing wildlife visibility</div><div>👉 Perfect for game drives, but bring a warm layer for early mornings</div></div><p class=\"section-title\">🏝️ Zanzibar (Beach &amp; Diving)</p><p>Zanzibar is warmer and more tropical:</p><div class=\"bullet-block\"><div>🌡️ Daytime: 26–32°C</div><div>🌊 Ocean: warm and ideal for swimming &amp; diving</div><div>💧 Humidity: higher than on safari, but usually with a nice ocean breeze</div><div>🌧️ Rain: very unlikely</div><div>👉 Ideal beach weather, but it can feel hot and humid</div></div>" }
         ],
         formTitle: "Have another question?",
         formDesc: "Can't find what you're looking for? Send us your question and we'll add it to the list.",
