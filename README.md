@@ -45,11 +45,8 @@ Feel free to check [our documentation](https://docs.astro.build) or jump into ou
 ## TODO
 
 ### Text changes
-- Add wedding end time (02:00 am)
-- Make section for Lusaka smaller or remove completely and give recommendations for where to travel
 - Tell them areas where to stay in Lusaka, close to the wedding, closer to the city, safe neighborhoods, etc.
 - Is the costs of our flights relevant?
-- Weather in Zambia and Tanzania, add as question to Q&A
 - Should we create categories for Q&A?
 - Gifts? Ask Claude if we should add anything here
 

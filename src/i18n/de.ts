@@ -60,16 +60,16 @@ export const de = {
                 flag: "Vor der Hochzeit · Sambia",
                 name: "Lusaka & Sambia",
                 duration: "2./3. - 14./15. September",
-                desc: "Wir planen, am 2. oder 3. September in Lusaka einzutreffen — wer zu dieser Zeit schon vor Ort ist, den treffen wir sehr gerne auf einen Kaffee oder ein Sundowner-Drink, bevor die Feierlichkeiten beginnen. Sambia hat einiges zu bieten für alle, die früher anreisen und die Zeit nutzen möchten:",
+                desc: "Kommt wann immer es für euch passt — Sambia hat einiges zu entdecken. Für Aktivitätstipps schaut gerne in die Q&A-Seite oder schreibt uns eine Nachricht.",
                 howToGet: "",
-                highlights: [
-                    "Kafue-Nationalpark — einer der größten Nationalparks Afrikas, etwa 4 Stunden von Lusaka entfernt. Eine fantastische Option für alle, die auf Safari gehen möchten.",
-                    "Lower-Zambezi-Nationalpark — beeindruckende Flusslandschaft mit hervorragenden Pirschfahrten und Kanu-Safaris, etwa 5 Stunden von Lusaka entfernt.",
-                    "Livingstone & Victoriafälle — eines der sieben Naturwunder der Welt. Empfehlenswert sind Sonnenuntergangscruises auf dem Sambesi, ein Besuch des lebendigen Mukuni Village sowie natürlich die Victoriafälle selbst.",
-                ],
+                highlights: [],
                 tags: ["Lusaka", "Safari", "Victoriafälle"],
                 tbc: [],
-                itinerary: [],
+                itinerary: [
+                    { date: "2./3. Sep", title: "Wir kommen in Lusaka an", detail: "", status: "open", note: "", flight: null },
+                    { date: "12. Sep", title: "Hochzeitstag", detail: "Waterfalls Place, Lusaka", status: "booked", note: "", flight: null },
+                    { date: "15. Sep", title: "Wir reisen nach Tansania", detail: "Flugdetails in Abschnitt 02", status: "booked", note: "", flight: null },
+                ],
             },
             {
                 number: "02",
@@ -134,6 +134,7 @@ export const de = {
             { q: "Kann ich bei der Reise nach Tansania mitmachen?", a: "Ja! Ihr seid herzlich eingeladen, die gesamte Reise oder nur Teile davon mitzumachen. Alle Updates und Details — einschließlich Informationen zu Flügen, Unterkunft und mehr — werden im Tab „Reisen\" upgedatet. Jeder kann die Abschnitte, bei denen er dabei sein möchte, eigenständig buchen.." },
             { q: "Wo soll ich in Lusaka übernachten?", a: "Die Hochzeitslocation befindet sich direkt neben dem internationalen Flughafen, sodass man ganz bequem in der Nähe übernachten kann — dort gibt es einige Lodges in verschiedenen Preisklassen. Wer lieber etwas von der Stadt sehen möchte, findet auch in Lusaka selbst gute Optionen. Auf Booking.com und Airbnb gibt es eine große Auswahl für jedes Budget. Falls wir konkrete Empfehlungen haben, werden wir diese hier teilen." },
             { q: "Wie komme ich in Lusaka von A nach B?", a: "In Lusaka kommt man am einfachsten mit Ulendo oder Yango von A nach B — beide funktionieren wie Uber und sind rum um die Uhr im Einsatz. Bitte beachten: Bezahlt wird nur in bar."},
+            { q: "Was gibt es in Sambia zu tun?", a: "<p>Sambia hat für alle, die früher anreisen, einiges zu bieten. Hier ein paar Highlights:</p><p><strong>Kafue-Nationalpark</strong> — einer der größten Nationalparks Afrikas, etwa 4 Stunden von Lusaka entfernt. Eine fantastische Option für alle, die auf Safari gehen möchten.</p><p><strong>Lower-Zambezi-Nationalpark</strong> — beeindruckende Flusslandschaft mit hervorragenden Pirschfahrten und Kanu-Safaris, etwa 5 Stunden von Lusaka entfernt.</p><p><strong>Livingstone &amp; Victoriafälle</strong> — eines der sieben Naturwunder der Welt. Empfehlenswert sind Sonnenuntergangscruises auf dem Sambesi, ein Besuch des lebendigen Mukuni Village sowie natürlich die Victoriafälle selbst.</p><p>Bei weiteren Empfehlungen einfach melden — wir helfen gerne weiter!</p>" },
             { q: "Wie wird das Wetter bei der Hochzeit in Sambia sein?", a: "<p>September ist eine der besten Reisezeiten in Sambia. Ihr könnt mit warmem, sonnigem und trockenem Wetter rechnen — ideal für unsere Hochzeitsfeier.</p><div class=\"bullet-block\"><div>🌡️ Tagestemperaturen: ca. 25–30°C</div><div>🌙 Abends: kühler, ca. 10–15°C</div><div>☀️ Regen: sehr unwahrscheinlich (Trockenzeit)</div><div>🌿 Insgesamt: angenehm, komfortabel und nicht zu schwül</div></div><p>Was ihr einpacken solltet:</p><ul><li>Leichte, luftige Kleidung für den Tag</li><li>Eine leichte Jacke oder ein Tuch für den Abend</li></ul>" },
             { q: "Welches Wetter erwartet uns auf Safari und in Sansibar?", a: "<p>Ihr könnt mit hervorragenden Reisebedingungen rechnen — mit einem wichtigen Unterschied zwischen Safari und Küste.</p><p class=\"section-title\">🐘 Safari (Nordtansania – Serengeti &amp; Ngorongoro)</p><p>September ist einer der besten Monate für eine Safari:</p><div class=\"bullet-block\"><div>🌡️ Tagsüber: 22–28°C</div><div>🌙 Frühe Morgen &amp; Abende: kann kühl werden (bis zu 5–10°C im Ngorongoro)</div><div>☀️ Wetter: trocken, sonnig, kaum Regen</div><div>🌾 Bedingungen: trockene Landschaft → fantastische Sichtbarkeit für Wildtiere</div><div>👉 Perfekt für Pirschfahrten, aber warme Schicht für frühe Morgenstunden nicht vergessen</div></div><p class=\"section-title\">🏝️ Sansibar (Strand &amp; Tauchen)</p><p>Sansibar ist wärmer und tropischer:</p><div class=\"bullet-block\"><div>🌡️ Tagsüber: 26–32°C</div><div>🌊 Meer: warm und ideal zum Schwimmen &amp; Tauchen</div><div>💧 Luftfeuchtigkeit: höher als auf Safari, aber meist mit angenehmer Meeresbrise</div><div>🌧️ Regen: sehr unwahrscheinlich</div><div>👉 Ideales Strandwetter, aber es kann warm und schwül sein</div></div>" }
         ],

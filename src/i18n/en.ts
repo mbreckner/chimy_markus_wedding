@@ -60,16 +60,16 @@ export const en = {
                 flag: "Before the wedding · Zambia",
                 name: "Lusaka & Zambia",
                 duration: "2/3th - 14/15th September",
-                desc: "We're planning to arrive in Lusaka on the 2nd or 3rd of September — if you happen to be around at that time, we'd love to meet up for a coffee or a sundowner before the celebrations begin. \n Zambia has plenty to offer for those arriving early and looking to make the most of their time:",
+                desc: "Feel free to arrive whenever works best for you — Zambia has plenty to explore before the big day. For activity recommendations, check the Q&A page or send us a message.",
                 howToGet: "",
-                highlights: [
-                    "Kafue National Park — one of the largest national parks in Africa, about 4 hours from Lusaka. A fantastic option for anyone keen on safari.",
-                    "Lower Zambezi National Park — stunning river landscapes with excellent game drives and canoe safaris, about 5 hours from Lusaka.",
-                    "Livingstone & Victoria Falls — one of the seven natural wonders of the world. Highlights include sunset cruises on the Zambezi, a visit to the vibrant Mukuni Village, and of course the Falls themselves.",
-                ],
+                highlights: [],
                 tags: ["Lusaka", "Safari", "Victoria Falls"],
                 tbc: [],
-                itinerary: [],
+                itinerary: [
+                    { date: "2/3 Sep", title: "We arrive in Lusaka", detail: "", status: "open", note: "", flight: null },
+                    { date: "12 Sep", title: "Wedding Day", detail: "Waterfalls Place, Lusaka", status: "booked", note: "", flight: null },
+                    { date: "15 Sep", title: "We leave for Tanzania", detail: "See section 02 for flight details", status: "booked", note: "", flight: null },
+                ],
             },
             {
                 number: "02",
@@ -134,6 +134,7 @@ export const en = {
             { q: "Can I join the trip to Tanzania?", a: "Yes! You are more than welcome to join us for the entire trip or just parts of it. Updates and details — including information on flights, accommodation, and more — will be shared in the Travel tab as plans are confirmed. Everyone can then book independently for whichever parts they'd like to join." },
             { q: "Where should I stay in Lusaka?", a: "The wedding venue is located right next to the international airport, making it very convenient to stay nearby — there are several lodges in various price ranges in the area. Those who'd prefer to explore the city can find plenty of good options in Lusaka itself as well. Booking.com and Airbnb offer a wide selection for every budget. If we have any specific recommendations, we'll share them here." },
             { q: "How do I get around in Lusaka?", a: "Getting around Lusaka is easiest with Ulendo or Yango — both work just like Uber and the operate 24h. Please note: payment is cash only."},
+            { q: "What is there to do in Zambia?", a: "<p>Zambia has a lot to offer for those arriving early. Here are some highlights worth considering:</p><p><strong>Kafue National Park</strong> — one of the largest national parks in Africa, about 4 hours from Lusaka. A fantastic option for anyone keen on safari.</p><p><strong>Lower Zambezi National Park</strong> — stunning river landscapes with excellent game drives and canoe safaris, about 5 hours from Lusaka.</p><p><strong>Livingstone &amp; Victoria Falls</strong> — one of the seven natural wonders of the world. Highlights include sunset cruises on the Zambezi, a visit to the vibrant Mukuni Village, and of course the Falls themselves.</p><p>Feel free to reach out if you'd like more specific recommendations — we're happy to help!</p>" },
             { q: "What will the weather be like for the wedding in Zambia?", a: "<p>September is one of the best times of the year to visit Zambia. You can expect warm, sunny, and dry weather, making it perfect for our wedding celebrations.</p><div class=\"bullet-block\"><div>🌡️ Daytime temperatures: around 25–30°C</div><div>🌙 Evenings: cooler, around 10–15°C</div><div>☀️ Rain: very unlikely (dry season)</div><div>🌿 Overall: pleasant, comfortable, and not too humid</div></div><p>It's ideal for outdoor events, so you can look forward to beautiful conditions throughout the day.</p><p>What to bring:</p><ul><li>Light, breathable clothing for the day</li><li>A light jacket or shawl for the evening</li></ul>" },
             { q: "What weather can we expect for the safari and Zanzibar trip?", a: "<p>You can expect excellent travel conditions throughout — but with an important difference between safari and the coast.</p><p class=\"section-title\">🐘 Safari (Northern Tanzania – Serengeti &amp; Ngorongoro)</p><p>September is one of the best months for safari:</p><div class=\"bullet-block\"><div>🌡️ Daytime: 22–28°C</div><div>🌙 Early mornings &amp; evenings: can be cool (as low as 5–10°C in Ngorongoro)</div><div>☀️ Weather: dry, sunny, almost no rain</div><div>🌾 Conditions: dry landscape → amazing wildlife visibility</div><div>👉 Perfect for game drives, but bring a warm layer for early mornings</div></div><p class=\"section-title\">🏝️ Zanzibar (Beach &amp; Diving)</p><p>Zanzibar is warmer and more tropical:</p><div class=\"bullet-block\"><div>🌡️ Daytime: 26–32°C</div><div>🌊 Ocean: warm and ideal for swimming &amp; diving</div><div>💧 Humidity: higher than on safari, but usually with a nice ocean breeze</div><div>🌧️ Rain: very unlikely</div><div>👉 Ideal beach weather, but it can feel hot and humid</div></div>" }
         ],

@@ -85,7 +85,6 @@ const tv = tr.travel;
                 <div class="destination" id={`dest-${dest.number}`}>
                     <div class="dest-number">{dest.number}</div>
                     <div>
-                        <p class="dest-flag">{dest.flag}</p>
                         <h2 class="dest-name">{dest.name}</h2>
                         <p class="dest-duration">{dest.duration}</p>
                         {dest.desc.split('\n').filter(p => p.trim()).map(p => (
@@ -145,10 +144,6 @@ const tv = tr.travel;
                                 })}
                             </ul>
                         )}
-                        <div class="dest-tags">
-                            {dest.tags.map(tag => <span class="dest-badge">{tag}</span>)}
-                            {dest.tbc.map(tag => <span class="tbc-badge">{tag}</span>)}
-                        </div>
                     </div>
                 </div>
         ))}
