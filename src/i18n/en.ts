@@ -42,7 +42,7 @@ export const en = {
             transport: { label: "Getting There", content: "Accessible via <strong>Great East Road</strong>.<br><br>Recommended taxis:<br><strong>Yango</strong> or <strong>Ulendo</strong>" },
             children: { label: "Children", content: "Our celebration is planned as an <strong>adults-only</strong> event. We kindly ask you to arrange childcare in advance." },
         },
-        note: "Questions? Reach us anytime — Chimwemwe: +41 76 776 0032 · Markus: +41 762 41 6472",
+        note: "Questions? Reach us anytime or submit a new question in the Q&A section",
     },
     travel: {
         eyebrow: "September – October 2026",
