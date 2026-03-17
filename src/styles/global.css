@@ -16,7 +16,7 @@
     --divider: rgba(107,30,30,0.12);
 }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
 
 body {
     font-family: 'Jost', sans-serif;

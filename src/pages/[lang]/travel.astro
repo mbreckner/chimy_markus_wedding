@@ -14,7 +14,8 @@ const tv = tr.travel;
 
 <Layout lang={lang} page="travel">
     <style>
-        .travel-intro { font-size: 14px; color: var(--text-mid); line-height: 1.8; margin-bottom: 2rem; font-style: italic; text-align: center; max-width: 520px; margin-left: auto; margin-right: auto; }
+        .travel-intro { font-size: 14px; color: var(--text-mid); line-height: 1.8; margin-bottom: 2rem; font-style: italic; }
+        @media (min-width: 641px) { .travel-intro { margin-left: calc(140px + 2.5rem); } }
         .destination { padding: 2.5rem 0; border-bottom: 1px solid var(--divider); display: grid; grid-template-columns: 140px 1fr; gap: 2.5rem; align-items: start; }
         .destination:last-child { border-bottom: none; }
         .dest-number { font-family: 'Cormorant Garamond', serif; font-size: 64px; font-weight: 300; color: var(--divider); line-height: 1; text-align: right; }
@@ -36,7 +37,7 @@ const tv = tr.travel;
         .itin-dot--booked { background: #4a7c59; border: 1.5px solid #4a7c59; }
         .itin-dot--open { background: var(--ivory); border: 1.5px solid #bbb; }
         .itin-connector { width: 1px; flex: 1; background: var(--divider); margin: 3px 0 0; min-height: 10px; }
-        .itin-content { padding-bottom: 0.85rem; }
+        .itin-content { padding-bottom: 0.85rem; min-width: 0; overflow: hidden; }
         .itin-title-row { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
         .itin-title { font-size: 13px; color: var(--text-dark); font-weight: 500; line-height: 1.4; }
         .itin-badge { font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 7px; }
@@ -52,16 +53,18 @@ const tv = tr.travel;
         .flight-pill-via-inline { font-size: 9px; color: var(--text-light); letter-spacing: 0.04em; margin: 0 0.1rem; }
         .itin-note { font-size: 12px; color: var(--text-mid); line-height: 1.75; margin-top: 0.4rem; font-style: italic; }
         .dest-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 0.75rem; }
+        .travel-note { }
+        @media (min-width: 641px) { .travel-note { margin-left: calc(140px + 2.5rem); } }
         .dest-badge { padding: 3px 10px; border: 0.5px solid var(--divider); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-light); }
         .tbc-badge { padding: 3px 10px; background: var(--gold-light); border: 0.5px solid var(--gold); font-size: 10px; letter-spacing: 0.08em; color: var(--gold); }
-        .journey-nav { position: sticky; top: 60px; z-index: 50; background: var(--ivory); border-bottom: 1px solid var(--divider); display: flex; margin: 0 -2rem 0; padding: 0 2rem; }
+        .journey-nav { position: sticky; top: 60px; z-index: 50; background: var(--ivory); border-bottom: 1px solid var(--divider); display: flex; padding: 0 2rem; }
         .journey-nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 0.35rem; padding: 0.7rem 0.5rem; text-decoration: none; cursor: pointer; position: relative; transition: opacity 0.2s; }
         .journey-nav-item:not(:last-child)::after { content: ''; position: absolute; top: 1.05rem; left: calc(50% + 14px); right: calc(-50% + 14px); height: 1px; background: var(--divider); }
         .journey-nav-dot { width: 22px; height: 22px; border-radius: 50%; border: 1px solid var(--divider); display: flex; align-items: center; justify-content: center; font-size: 9px; letter-spacing: 0.05em; color: var(--text-light); background: var(--ivory); z-index: 1; transition: all 0.25s; }
         .journey-nav-label { font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-light); text-align: center; line-height: 1.3; transition: color 0.25s; }
         .journey-nav-item.is-active .journey-nav-dot { background: var(--burgundy); border-color: var(--burgundy); color: var(--ivory); }
         .journey-nav-item.is-active .journey-nav-label { color: var(--burgundy); }
-        @media (max-width: 640px) { .destination { grid-template-columns: 1fr; } .dest-number { display: none; } .journey-nav { margin: 0 -1rem; padding: 0 1rem; } .journey-nav-label { display: none; } .journey-nav-item { padding: 0.7rem 0; } }
+        @media (max-width: 640px) { .destination { grid-template-columns: 1fr; } .dest-number { display: none; } .journey-nav { padding: 0 1rem; } .journey-nav-label { display: none; } .journey-nav-item { padding: 0.7rem 0; } }
     </style>
 
     <div class="page-header">
@@ -80,7 +83,7 @@ const tv = tr.travel;
 
     <div class="content">
         <p class="travel-intro">{tv.intro}</p>
-        <div class="note-box" style="margin-bottom: 2rem"><p>{tv.note}</p></div>
+        <div class="note-box travel-note" style="margin-bottom: 2rem"><p>{tv.note}</p></div>
         {tv.destinations.map(dest => (
                 <div class="destination" id={`dest-${dest.number}`}>
                     <div class="dest-number">{dest.number}</div>
