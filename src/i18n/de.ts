@@ -1,6 +1,6 @@
 export const de = {
     nav: {
-        home: "Start",
+        home: "Home",
         wedding: "Hochzeit",
         travel: "Reisen",
         qa: "FAQ",
@@ -66,7 +66,7 @@ export const de = {
                 tags: ["Lusaka", "Safari", "Victoriafälle"],
                 tbc: [],
                 itinerary: [
-                    { date: "2./3. Sep", title: "Wir kommen in Lusaka an", detail: "", status: "open", note: "", flight: null },
+                    { date: "3. Sep", title: "Wir kommen in Lusaka an", detail: "Ankunft um 13:10 Uhr", status: "booked", note: "", flight: null },
                     { date: "12. Sep", title: "Hochzeitstag", detail: "Waterfalls Place, Lusaka", status: "booked", note: "", flight: null },
                     { date: "15. Sep", title: "Wir reisen nach Tansania", detail: "Flugdetails in Abschnitt 02", status: "booked", note: "", flight: null },
                 ],
@@ -109,7 +109,7 @@ export const de = {
                 number: "04",
                 flag: "Nach der Hochzeit · Tansania",
                 name: "Sansibar",
-                duration: "22. September – 1./2. Oktober · ~10 Tage",
+                duration: "22. September – 3. Oktober · ~11 Tage",
                 desc: "Nach Wochen mit Wildtieren und Hochland hat die Reise auf Sansibar keine Agenda mehr. Wir planen, unsere Zeit zwischen der Südostküste (Paje / Jambiani) für Kitesurfen und dem ruhigeren Nordosten (Matemwe) für Tauchen und langsame Strandtage aufzuteilen. Nichts davon ist fix — dieser Teil der Reise ist bewusst offen gehalten.",
                 howToGet: "Ein kurzer Flug von Arusha — Details folgen.",
                 highlights: [
@@ -120,7 +120,9 @@ export const de = {
                 ],
                 tags: ["Kitesurfen", "Tauchen", "Stone Town", "Jozani-Wald", "Strand"],
                 tbc: ["Unterkunft noch offen"],
-                itinerary: [],
+                itinerary: [
+                    { date: "3. Okt", title: "Rückflug von Sansibar", detail: "Abflug um 19:10 Uhr", status: "booked", note: "", flight: null },
+                ],
             },
         ],
     },

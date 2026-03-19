@@ -66,7 +66,7 @@ export const en = {
                 tags: ["Lusaka", "Safari", "Victoria Falls"],
                 tbc: [],
                 itinerary: [
-                    { date: "2/3 Sep", title: "We arrive in Lusaka", detail: "", status: "open", note: "", flight: null },
+                    { date: "3 Sep", title: "We arrive in Lusaka", detail: "Arriving at 13:10", status: "booked", note: "", flight: null },
                     { date: "12 Sep", title: "Wedding Day", detail: "Waterfalls Place, Lusaka", status: "booked", note: "", flight: null },
                     { date: "15 Sep", title: "We leave for Tanzania", detail: "See section 02 for flight details", status: "booked", note: "", flight: null },
                 ],
@@ -109,7 +109,7 @@ export const en = {
                 number: "04",
                 flag: "After the wedding · Tanzania",
                 name: "Zanzibar",
-                duration: "22 September – 1/2 October · ~10 days",
+                duration: "22 September – 3 October · ~11 days",
                 desc: "After weeks of wildlife and highlands, Zanzibar is where the trip has no agenda. We're planning to split our time between the southeast coast (Paje / Jambiani) for kitesurfing, and the quieter northeast (Matemwe) for diving and slow days on the beach. Nothing here is set in stone — this section of the trip is intentionally open.",
                 howToGet: "A short flight from Arusha — details to follow.",
                 highlights: [
@@ -120,7 +120,9 @@ export const en = {
                 ],
                 tags: ["Kitesurfing", "Diving", "Stone Town", "Jozani Forest", "Beach"],
                 tbc: ["Accommodation TBC"],
-                itinerary: [],
+                itinerary: [
+                    { date: "3 Oct", title: "Flight home from Zanzibar", detail: "Departing at 19:10", status: "booked", note: "", flight: null },
+                ],
             }
         ],
     },
