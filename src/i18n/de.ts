@@ -183,7 +183,7 @@ export const de = {
     },
     rsvp: {
         eyebrow: "RSVP",
-        title: "Kommt ihr dabei?",
+        title: "Seid ihr dabei?",
         deadline: "30. Juni 2026",
         body: "Schreibt uns einfach auf WhatsApp — eine kurze Nachricht reicht völlig.",
         deadlineLabel: "Bitte bis spätestens",
