@@ -10,6 +10,7 @@ export function getStaticPaths() {
 const { lang } = Astro.params as { lang: Lang };
 const tr = t(lang);
 const h = tr.home;
+const rsvp = tr.rsvp;
 ---
 
 <Layout lang={lang} page="home">
@@ -28,6 +29,12 @@ const h = tr.home;
         .hero-meta strong { color: var(--burgundy); font-weight: 500; font-size: clamp(17px, 2vw, 21px); display: block; letter-spacing: 0.01em; }
         .hero-meta .meta-venue { font-size: clamp(13px, 1.4vw, 16px); color: var(--text-dark); }
         .hero-meta .meta-time { font-size: 12px; color: var(--text-light); letter-spacing: 0.05em; }
+        .hero-rsvp { margin-top: 2rem; padding-top: 1.75rem; border-top: 1px solid var(--divider); }
+        .hero-rsvp-eyebrow { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; font-weight: 400; }
+        .hero-rsvp-title { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 400; font-style: italic; color: var(--burgundy); margin-bottom: 0.5rem; }
+        .hero-rsvp-body { font-size: 13px; color: var(--text-dark); line-height: 1.7; margin-bottom: 0.6rem; }
+        .hero-rsvp-deadline-label { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-mid); margin-bottom: 0.2rem; }
+        .hero-rsvp-date { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 400; color: var(--burgundy); }
         .hero-right { position: relative; overflow: hidden; background: var(--ivory-dark); }
         .hero-right img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
         .hero-right-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 2rem; background: linear-gradient(to top, rgba(36,21,21,0.55) 0%, transparent 100%); }
@@ -71,6 +78,13 @@ const h = tr.home;
                 <strong>{h.weddingDate}</strong>
                 <span class="meta-venue">{h.weddingVenue}</span>
                 <span class="meta-time">{h.ceremonyTime}</span>
+            </div>
+            <div class="hero-rsvp">
+                <p class="hero-rsvp-eyebrow">{rsvp.eyebrow}</p>
+                <p class="hero-rsvp-title">{rsvp.title}</p>
+                <p class="hero-rsvp-body">{rsvp.body}</p>
+                <p class="hero-rsvp-deadline-label">{rsvp.deadlineLabel}</p>
+                <p class="hero-rsvp-date">{rsvp.deadline}</p>
             </div>
         </div>
         <div class="hero-right">

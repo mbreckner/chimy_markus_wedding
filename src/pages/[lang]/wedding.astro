@@ -61,15 +61,6 @@ const rsvp = tr.rsvp;
             ))}
         </div>
 
-        <div class="info-grid">
-            {Object.values(w.cards).map(card => (
-                    <div class="info-card">
-                        <p class="info-card-label">{card.label}</p>
-                        <p class="info-card-content" set:html={card.content} />
-                    </div>
-            ))}
-        </div>
-
         <div class="rsvp-section">
             <p class="rsvp-eyebrow">{rsvp.eyebrow}</p>
             <p class="rsvp-title">{rsvp.title}</p>
@@ -77,6 +68,15 @@ const rsvp = tr.rsvp;
             <p class="rsvp-body">{rsvp.body}</p>
             <p class="rsvp-deadline-label">{rsvp.deadlineLabel}</p>
             <p class="rsvp-date">{rsvp.deadline}</p>
+        </div>
+
+        <div class="info-grid">
+            {Object.values(w.cards).map(card => (
+                    <div class="info-card">
+                        <p class="info-card-label">{card.label}</p>
+                        <p class="info-card-content" set:html={card.content} />
+                    </div>
+            ))}
         </div>
 
         <div class="note-box" style="margin-top:2.5rem">
