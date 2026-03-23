@@ -160,7 +160,7 @@ export const de = {
         formDesc: "Nicht gefunden, was ihr sucht? Schickt uns eure Frage — sie wird uns per E-Mail zugestellt, und wenn sie für alle interessant ist, ergänzen wir sie hier mit einer Antwort.",
         nameLabel: "Euer Name",
         questionLabel: "Eure Frage",
-        namePlaceholder: "Anna Müller",
+        namePlaceholder: "Dein Name",
         questionPlaceholder: "Ich wollte fragen, ob...",
         submitBtn: "Frage senden",
         successMsg: "Danke! Wir werden eure Frage bald beantworten.",

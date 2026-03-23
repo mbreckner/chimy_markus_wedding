@@ -160,7 +160,7 @@ export const en = {
         formDesc: "Can't find what you're looking for? Submit your question below — it will be sent to us by email, and if others are likely wondering the same thing, we'll add it here with an answer.",
         nameLabel: "Your name",
         questionLabel: "Your question",
-        namePlaceholder: "Anna Müller",
+        namePlaceholder: "Your name",
         questionPlaceholder: "I was wondering about...",
         submitBtn: "Submit question",
         successMsg: "Thank you! We will answer your question soon.",
