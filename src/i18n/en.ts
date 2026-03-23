@@ -2,7 +2,7 @@ export const en = {
     nav: {
         home: "Home",
         wedding: "Wedding",
-        travel: "Traveling",
+        travel: "Trip",
         qa: "Q & A",
         guestbook: "Guestbook",
     },
@@ -18,7 +18,7 @@ export const en = {
         statCountries: "Countries to explore",
         introQuote: "We are getting married in <em>Lusaka</em> and would love to share this trip with you — from Zambia across Tanzania, all the way to the shores of <em>Zanzibar.</em>",
         introSub: "Use the navigation above to find everything you need — wedding details, travel plans, answers to your questions, and a place to leave us a message.",
-        journeyLabel: "Traveling",
+        journeyLabel: "Trip",
         journeyTitle: "Plans around the wedding",
         stops: [
             { letter: "L", name: "Lusaka", detail: "Zambia · Wedding" },
@@ -47,7 +47,7 @@ export const en = {
     },
     travel: {
         eyebrow: "September – October 2026",
-        title: "Traveling",
+        title: "Trip",
         howToGetLabel: "Getting there",
         itineraryLabel: "Itinerary",
         itineraryBooked: "Booked",
