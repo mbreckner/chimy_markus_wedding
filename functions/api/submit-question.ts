@@ -22,33 +22,29 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
         return new Response(JSON.stringify({ error: 'Email service not configured' }), { status: 503 });
     }
 
-    // Fire-and-forget: return success immediately, send email in background
-    context.waitUntil(
-        fetch('https://api.brevo.com/v3/smtp/email', {
-            method: 'POST',
-            headers: {
-                'api-key': apiKey,
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                sender: { name: 'Wedding Q&A', email: 'mbreckner@yahoo.de' },
-                to: [{ email: 'mbreckner@yahoo.de' }],
-                subject: `New wedding question from ${name}`,
-                htmlContent: `
-                    <p><strong>Name:</strong> ${name}</p>
-                    <p><strong>Question:</strong></p>
-                    <p>${question.replace(/\n/g, '<br>')}</p>
-                `,
-            }),
-        }).then(async (res) => {
-            if (!res.ok) {
-                const err = await res.text();
-                console.error('Brevo error:', err);
-            }
-        }).catch((err) => {
-            console.error('Failed to send email via Brevo:', err);
-        })
-    );
+    const res = await fetch('https://api.brevo.com/v3/smtp/email', {
+        method: 'POST',
+        headers: {
+            'api-key': apiKey,
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            sender: { name: 'Wedding Q&A', email: 'mbreckner@yahoo.de' },
+            to: [{ email: 'mbreckner@yahoo.de' }],
+            subject: `New wedding question from ${name}`,
+            htmlContent: `
+                <p><strong>Name:</strong> ${name}</p>
+                <p><strong>Question:</strong></p>
+                <p>${question.replace(/\n/g, '<br>')}</p>
+            `,
+        }),
+    });
+
+    if (!res.ok) {
+        const err = await res.text();
+        console.error('Brevo error:', err);
+        return new Response(JSON.stringify({ error: 'Failed to send email' }), { status: 502 });
+    }
 
     return new Response(JSON.stringify({ success: true }), { status: 200 });
 };
