@@ -3,6 +3,8 @@ import Layout from '../../layouts/Layout.astro';
 import { t, languages } from '../../i18n';
 import type { Lang } from '../../i18n';
 
+export const prerender = true;
+
 export function getStaticPaths() {
     return languages.map(lang => ({ params: { lang } }));
 }
@@ -57,25 +59,49 @@ const gb = tr.guestbook;
             ))}
         </div>
 
-        {/*TODO: enable again maybe? <div class="form-section">
+        <div class="form-section">
             <h3 class="form-title">{qa.formTitle}</h3>
             <p class="form-desc">{qa.formDesc}</p>
             <div class="form-row"><label>{qa.nameLabel}</label><input type="text" id="q-name" placeholder={qa.namePlaceholder} /></div>
             <div class="form-row"><label>{qa.questionLabel}</label><textarea id="q-text" placeholder={qa.questionPlaceholder}></textarea></div>
             <button class="btn-submit" id="q-submit">{qa.submitBtn}</button>
             <div class="form-success" id="q-success">{qa.successMsg}</div>
-        </div> */}
+            <div class="form-error" id="q-error">{qa.errorMsg}</div>
+        </div>
     </div>
 
     <script>
-        document.getElementById('q-submit')?.addEventListener('click', () => {
-            const name = (document.getElementById('q-name') as HTMLInputElement)?.value.trim();
-            const text = (document.getElementById('q-text') as HTMLTextAreaElement)?.value.trim();
-            if (!name || !text) return;
-            const success = document.getElementById('q-success');
-            if (success) success.style.display = 'block';
-            (document.getElementById('q-name') as HTMLInputElement).value = '';
-            (document.getElementById('q-text') as HTMLTextAreaElement).value = '';
+        document.getElementById('q-submit')?.addEventListener('click', async () => {
+            const nameEl = document.getElementById('q-name') as HTMLInputElement;
+            const textEl = document.getElementById('q-text') as HTMLTextAreaElement;
+            const name = nameEl?.value.trim();
+            const question = textEl?.value.trim();
+            if (!name || !question) return;
+
+            const btn = document.getElementById('q-submit') as HTMLButtonElement;
+            btn.disabled = true;
+
+            try {
+                const res = await fetch('/api/submit-question', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, question }),
+                });
+                if (res.ok) {
+                    const success = document.getElementById('q-success');
+                    const error = document.getElementById('q-error');
+                    if (success) success.style.display = 'block';
+                    if (error) error.style.display = 'none';
+                    nameEl.value = '';
+                    textEl.value = '';
+                } else {
+                    throw new Error('Failed');
+                }
+            } catch {
+                const error = document.getElementById('q-error');
+                if (error) error.style.display = 'block';
+                btn.disabled = false;
+            }
         });
     </script>
 </Layout>

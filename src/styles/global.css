@@ -125,6 +125,7 @@ nav {
 .btn-submit { display: inline-block; padding: 0.75rem 2.5rem; background: var(--burgundy); color: var(--ivory); font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; border: none; cursor: pointer; transition: background 0.2s; margin-top: 0.5rem; }
 .btn-submit:hover { background: var(--burgundy-mid); }
 .form-success { display: none; padding: 0.75rem 1rem; border: 1px solid var(--gold); font-size: 13px; color: var(--gold); font-style: italic; margin-top: 1rem; background: var(--gold-light); }
+.form-error { display: none; padding: 0.75rem 1rem; border: 1px solid var(--burgundy); font-size: 13px; color: var(--burgundy); font-style: italic; margin-top: 1rem; }
 
 /* FOOTER */
 footer { padding: 3rem 2rem; text-align: center; border-top: 1px solid var(--divider); background: var(--burgundy); }
