@@ -1,4 +1,5 @@
 import type { APIRoute } from 'astro';
+import { env } from 'cloudflare:workers';
 
 export const prerender = false;
 
@@ -16,7 +17,7 @@ export const POST: APIRoute = async (context) => {
         return new Response(JSON.stringify({ error: 'Name and question are required' }), { status: 400 });
     }
 
-    const apiKey = (context.locals as App.Locals).runtime?.env?.BREVO_API_KEY;
+    const apiKey = (env as unknown as { BREVO_API_KEY?: string }).BREVO_API_KEY;
     if (!apiKey) {
         console.error('BREVO_API_KEY is not configured');
         return new Response(JSON.stringify({ error: 'Email service not configured' }), { status: 503 });
