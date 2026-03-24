@@ -12,8 +12,8 @@
 		{
 			// Replace with the actual KV namespace ID from the Cloudflare dashboard before deploying
 			"binding": "KV",
-			"id": "00000000000000000000000000000000",
-			"preview_id": "00000000000000000000000000000000"
+			"id": "81447728fcd54a21b60d939d4864a172",
+			"preview_id": "81447728fcd54a21b60d939d4864a172"
 		}
 	]
 }
