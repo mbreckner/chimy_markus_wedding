@@ -1,0 +1,578 @@
+---
+import type { Lang } from '../i18n';
+import { t } from '../i18n';
+
+interface Props {
+    section: string;
+    lang: Lang;
+}
+
+const { section, lang } = Astro.props;
+const vt = t(lang).travel.voting;
+
+const strings = JSON.stringify(vt);
+---
+
+<div class="vote-panel" data-section={section} data-strings={strings}>
+    <style>
+        .vote-panel {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--divider);
+        }
+        .vote-section-label {
+            font-size: 9px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        /* Name entry */
+        .vote-name-row {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .vote-name-input {
+            flex: 1;
+            min-width: 160px;
+            max-width: 260px;
+            padding: 0.5rem 0.75rem;
+            border: 1px solid var(--divider);
+            background: var(--ivory);
+            font-family: 'Jost', sans-serif;
+            font-size: 13px;
+            font-weight: 300;
+            color: var(--text-dark);
+            outline: none;
+            transition: border-color 0.2s;
+            border-radius: 0;
+        }
+        .vote-name-input:focus { border-color: var(--burgundy); }
+        .vote-name-input.is-error { border-color: var(--burgundy); }
+
+        /* Conflict notice */
+        .vote-conflict-notice {
+            font-size: 12px;
+            color: var(--text-mid);
+            font-style: italic;
+            margin-bottom: 0.75rem;
+            line-height: 1.6;
+        }
+        .vote-conflict-actions {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        /* Buttons */
+        .vote-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.5rem 1.1rem;
+            border: 1px solid var(--divider);
+            background: transparent;
+            font-family: 'Jost', sans-serif;
+            font-size: 10px;
+            font-weight: 400;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--text-mid);
+            cursor: pointer;
+            transition: border-color 0.2s, color 0.2s, background 0.2s;
+            border-radius: 0;
+        }
+        .vote-btn:hover {
+            border-color: var(--burgundy);
+            color: var(--burgundy);
+        }
+        .vote-btn.is-active-count-me-in {
+            border-color: #4a7c59;
+            color: #4a7c59;
+            background: #eef4f0;
+        }
+        .vote-btn.is-active-still-deciding {
+            border-color: var(--gold);
+            color: var(--gold);
+            background: var(--gold-light);
+        }
+        .vote-btn-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: currentColor;
+            flex-shrink: 0;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        .vote-btn.is-active-count-me-in .vote-btn-dot,
+        .vote-btn.is-active-still-deciding .vote-btn-dot {
+            opacity: 1;
+        }
+
+        /* Small text links */
+        .vote-link {
+            font-size: 11px;
+            color: var(--text-light);
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            font-family: 'Jost', sans-serif;
+            font-weight: 300;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+            transition: color 0.2s;
+        }
+        .vote-link:hover { color: var(--text-mid); }
+        .vote-link-tiny {
+            font-size: 10px;
+            letter-spacing: 0.04em;
+            color: var(--text-light);
+            opacity: 0.7;
+        }
+
+        .vote-actions-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .vote-btns {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        .vote-meta-row {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            margin-top: 0.6rem;
+            flex-wrap: wrap;
+        }
+
+        /* Vote lists */
+        .vote-lists {
+            margin-top: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .vote-list-group {}
+        .vote-list-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.3rem 0;
+            font-family: 'Jost', sans-serif;
+            font-size: 10px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--text-light);
+            font-weight: 400;
+        }
+        .vote-list-toggle:hover { color: var(--text-mid); }
+        .vote-list-count {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            font-size: 9px;
+            font-weight: 500;
+            letter-spacing: 0;
+        }
+        .vote-list-count--count-me-in {
+            background: #eef4f0;
+            color: #4a7c59;
+        }
+        .vote-list-count--still-deciding {
+            background: var(--gold-light);
+            color: var(--gold);
+        }
+        .vote-list-chevron {
+            font-size: 10px;
+            transition: transform 0.2s;
+            margin-left: auto;
+        }
+        .vote-list-toggle.is-open .vote-list-chevron {
+            transform: rotate(180deg);
+        }
+        .vote-list-names {
+            display: none;
+            padding: 0.4rem 0 0.5rem 0;
+            border-top: 1px solid var(--divider);
+            margin-top: 0.1rem;
+        }
+        .vote-list-names.is-open { display: block; }
+        :global(.vote-list-name) {
+            font-size: 11px;
+            color: var(--text-mid);
+            padding: 0.25rem 0;
+            border-bottom: 1px solid var(--divider);
+            line-height: 1.5;
+        }
+        .vote-list-name:last-child { border-bottom: none; }
+        :global(.vote-list-empty) {
+            font-size: 11px;
+            color: var(--text-light);
+            font-style: italic;
+            padding: 0.25rem 0;
+        }
+        .vote-loading { font-size: 11px; color: var(--text-light); font-style: italic; }
+    </style>
+
+    <p class="vote-section-label" data-key="sectionLabel">{vt.sectionLabel}</p>
+
+    <!-- Phase 1: Name entry (shown when no name is saved) -->
+    <div class="vote-phase" data-phase="name-entry" hidden>
+        <div class="vote-name-row">
+            <input
+                type="text"
+                class="vote-name-input"
+                data-key="namePlaceholder"
+                placeholder={vt.namePlaceholder}
+                autocomplete="name"
+            />
+            <button class="vote-btn" data-action="name-submit">{vt.nameSubmit}</button>
+        </div>
+    </div>
+
+    <!-- Phase 2: Conflict notice (shown when name already has a vote) -->
+    <div class="vote-phase" data-phase="conflict" hidden>
+        <p class="vote-conflict-notice" data-conflict-text></p>
+        <div class="vote-conflict-actions">
+            <button class="vote-btn" data-action="conflict-yes">{vt.conflictYes}</button>
+            <button class="vote-btn" data-action="conflict-no">{vt.conflictNo}</button>
+        </div>
+    </div>
+
+    <!-- Phase 3: Voting buttons (shown when name is confirmed) -->
+    <div class="vote-phase" data-phase="voting" hidden>
+        <div class="vote-actions-row">
+            <div class="vote-btns">
+                <button class="vote-btn" data-action="vote" data-status="count_me_in">
+                    <span class="vote-btn-dot"></span>
+                    {vt.countMeIn}
+                </button>
+                <button class="vote-btn" data-action="vote" data-status="still_deciding">
+                    <span class="vote-btn-dot"></span>
+                    {vt.stillDeciding}
+                </button>
+            </div>
+        </div>
+        <div class="vote-meta-row">
+            <button class="vote-link" data-action="remove-vote">{vt.removeVote}</button>
+            <button class="vote-link vote-link-tiny" data-action="not-you" data-not-you-text></button>
+        </div>
+    </div>
+
+    <!-- Vote lists (always shown after initial load) -->
+    <div class="vote-lists" data-lists hidden>
+        <div class="vote-list-group" data-list="count_me_in">
+            <button class="vote-list-toggle" data-list-toggle="count_me_in">
+                <span class="vote-list-count vote-list-count--count-me-in" data-list-count="count_me_in">0</span>
+                <span>{vt.countMeInList}</span>
+                <span class="vote-list-chevron">▾</span>
+            </button>
+            <div class="vote-list-names" data-list-names="count_me_in"></div>
+        </div>
+        <div class="vote-list-group" data-list="still_deciding">
+            <button class="vote-list-toggle" data-list-toggle="still_deciding">
+                <span class="vote-list-count vote-list-count--still-deciding" data-list-count="still_deciding">0</span>
+                <span>{vt.stillDecidingList}</span>
+                <span class="vote-list-chevron">▾</span>
+            </button>
+            <div class="vote-list-names" data-list-names="still_deciding"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const LS_KEY = 'wedding_guest_name';
+
+    type VoteStatus = 'count_me_in' | 'still_deciding';
+    interface Vote { name: string; status: string }
+    interface VotingStrings {
+        sectionLabel: string;
+        countMeIn: string;
+        stillDeciding: string;
+        removeVote: string;
+        notYou: string;
+        nameLabel: string;
+        namePlaceholder: string;
+        nameSubmit: string;
+        conflictNotice: string;
+        conflictYes: string;
+        conflictNo: string;
+        countMeInList: string;
+        stillDecidingList: string;
+        noVotesYet: string;
+        loadingError: string;
+    }
+
+    function initVotePanel(panel: HTMLElement) {
+        const section = panel.dataset.section!;
+        const strings: VotingStrings = JSON.parse(panel.dataset.strings!);
+
+        // Phase elements
+        const phaseNameEntry = panel.querySelector('[data-phase="name-entry"]') as HTMLElement;
+        const phaseConflict = panel.querySelector('[data-phase="conflict"]') as HTMLElement;
+        const phaseVoting = panel.querySelector('[data-phase="voting"]') as HTMLElement;
+        const listsEl = panel.querySelector('[data-lists]') as HTMLElement;
+
+        const nameInput = panel.querySelector<HTMLInputElement>('.vote-name-input')!;
+        const conflictText = panel.querySelector<HTMLElement>('[data-conflict-text]')!;
+        const notYouBtn = panel.querySelector<HTMLButtonElement>('[data-action="not-you"]')!;
+
+        let votes: Vote[] = [];
+        let confirmedName: string | null = null;
+        let pendingName: string | null = null;
+
+        function savedName(): string | null {
+            return localStorage.getItem(LS_KEY);
+        }
+
+        function saveName(name: string) {
+            localStorage.setItem(LS_KEY, name);
+        }
+
+        function clearName() {
+            localStorage.removeItem(LS_KEY);
+        }
+
+        function myVote(): Vote | undefined {
+            const name = confirmedName ?? savedName();
+            if (!name) return undefined;
+            return votes.find(v => v.name.toLowerCase() === name.toLowerCase());
+        }
+
+        function showPhase(phase: 'name-entry' | 'conflict' | 'voting' | null) {
+            phaseNameEntry.hidden = phase !== 'name-entry';
+            phaseConflict.hidden = phase !== 'conflict';
+            phaseVoting.hidden = phase !== 'voting';
+        }
+
+        function updateVotingButtons() {
+            const current = myVote();
+            const btns = panel.querySelectorAll<HTMLButtonElement>('[data-action="vote"]');
+            btns.forEach(btn => {
+                const s = btn.dataset.status as VoteStatus;
+                btn.classList.remove('is-active-count-me-in', 'is-active-still-deciding');
+                if (current?.status === s) {
+                    btn.classList.add(s === 'count_me_in' ? 'is-active-count-me-in' : 'is-active-still-deciding');
+                }
+            });
+        }
+
+        function updateNotYouBtn() {
+            const name = confirmedName ?? savedName();
+            if (name) {
+                notYouBtn.textContent = strings.notYou.replace('{name}', name);
+                notYouBtn.hidden = false;
+            } else {
+                notYouBtn.hidden = true;
+            }
+        }
+
+        function renderLists() {
+            const countMeInNames = votes.filter(v => v.status === 'count_me_in').map(v => v.name);
+            const stillDecidingNames = votes.filter(v => v.status === 'still_deciding').map(v => v.name);
+
+            (['count_me_in', 'still_deciding'] as const).forEach(status => {
+                const names = status === 'count_me_in' ? countMeInNames : stillDecidingNames;
+                const countEl = panel.querySelector<HTMLElement>(`[data-list-count="${status}"]`)!;
+                const namesEl = panel.querySelector<HTMLElement>(`[data-list-names="${status}"]`)!;
+
+                countEl.textContent = String(names.length);
+
+                if (names.length === 0) {
+                    namesEl.innerHTML = `<p class="vote-list-empty">${strings.noVotesYet}</p>`;
+                } else {
+                    namesEl.innerHTML = names
+                        .map(n => `<div class="vote-list-name">${escapeHtml(n)}</div>`)
+                        .join('');
+                }
+            });
+
+            listsEl.hidden = false;
+
+            // Auto-expand if user has voted
+            const hasVoted = !!myVote();
+            if (hasVoted) {
+                (['count_me_in', 'still_deciding'] as const).forEach(status => {
+                    const toggle = panel.querySelector<HTMLButtonElement>(`[data-list-toggle="${status}"]`)!;
+                    const namesEl = panel.querySelector<HTMLElement>(`[data-list-names="${status}"]`)!;
+                    toggle.classList.add('is-open');
+                    namesEl.classList.add('is-open');
+                });
+            }
+        }
+
+        function escapeHtml(str: string): string {
+            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
+        async function loadVotes() {
+            try {
+                const res = await fetch(`/api/votes?section=${section}`);
+                if (!res.ok) throw new Error('Failed to load');
+                votes = await res.json();
+            } catch {
+                // Silently fail on load — lists just won't show
+            }
+        }
+
+        async function init() {
+            await loadVotes();
+
+            const name = savedName();
+            if (name) {
+                confirmedName = name;
+                // Pre-fill input
+                nameInput.value = name;
+                updateNotYouBtn();
+                updateVotingButtons();
+                showPhase('voting');
+            } else {
+                showPhase('name-entry');
+            }
+
+            renderLists();
+        }
+
+        // Name submit
+        panel.querySelector<HTMLButtonElement>('[data-action="name-submit"]')!.addEventListener('click', async () => {
+            const name = nameInput.value.trim();
+            if (!name) {
+                nameInput.classList.add('is-error');
+                return;
+            }
+            nameInput.classList.remove('is-error');
+
+            // Check if this name already has a vote for this section
+            const existingVote = votes.find(v => v.name.toLowerCase() === name.toLowerCase());
+            if (existingVote) {
+                // Show conflict notice
+                pendingName = name;
+                conflictText.textContent = strings.conflictNotice.replace('{name}', name);
+                showPhase('conflict');
+            } else {
+                // New name — confirm immediately
+                confirmedName = name;
+                saveName(name);
+                updateNotYouBtn();
+                updateVotingButtons();
+                showPhase('voting');
+            }
+        });
+
+        // Allow pressing Enter in the name input
+        nameInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                panel.querySelector<HTMLButtonElement>('[data-action="name-submit"]')!.click();
+            }
+        });
+
+        // Conflict: yes, update my vote
+        panel.querySelector<HTMLButtonElement>('[data-action="conflict-yes"]')!.addEventListener('click', () => {
+            if (!pendingName) return;
+            confirmedName = pendingName;
+            saveName(pendingName);
+            pendingName = null;
+            updateNotYouBtn();
+            updateVotingButtons();
+            showPhase('voting');
+        });
+
+        // Conflict: use a different name
+        panel.querySelector<HTMLButtonElement>('[data-action="conflict-no"]')!.addEventListener('click', () => {
+            pendingName = null;
+            nameInput.value = '';
+            showPhase('name-entry');
+            nameInput.focus();
+        });
+
+        // Vote buttons
+        panel.querySelectorAll<HTMLButtonElement>('[data-action="vote"]').forEach(btn => {
+            btn.addEventListener('click', async () => {
+                if (!confirmedName) return;
+                const status = btn.dataset.status!;
+                try {
+                    await fetch('/api/votes', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ section, name: confirmedName, status }),
+                    });
+                    // Update local state
+                    const existing = votes.find(v => v.name.toLowerCase() === confirmedName!.toLowerCase());
+                    if (existing) {
+                        existing.status = status;
+                    } else {
+                        votes.push({ name: confirmedName!, status });
+                    }
+                    updateVotingButtons();
+                    renderLists();
+                } catch {
+                    // ignore
+                }
+            });
+        });
+
+        // Remove vote
+        panel.querySelector<HTMLButtonElement>('[data-action="remove-vote"]')!.addEventListener('click', async () => {
+            if (!confirmedName) return;
+            try {
+                await fetch('/api/votes', {
+                    method: 'DELETE',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ section, name: confirmedName }),
+                });
+                votes = votes.filter(v => v.name.toLowerCase() !== confirmedName!.toLowerCase());
+                updateVotingButtons();
+                renderLists();
+            } catch {
+                // ignore
+            }
+        });
+
+        // Not you?
+        notYouBtn.addEventListener('click', () => {
+            clearName();
+            confirmedName = null;
+            nameInput.value = '';
+            updateNotYouBtn();
+            showPhase('name-entry');
+
+            // Collapse all lists
+            panel.querySelectorAll<HTMLButtonElement>('[data-list-toggle]').forEach(toggle => {
+                toggle.classList.remove('is-open');
+            });
+            panel.querySelectorAll<HTMLElement>('[data-list-names]').forEach(el => {
+                el.classList.remove('is-open');
+            });
+        });
+
+        // List toggles
+        panel.querySelectorAll<HTMLButtonElement>('[data-list-toggle]').forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                const status = toggle.dataset.listToggle!;
+                const namesEl = panel.querySelector<HTMLElement>(`[data-list-names="${status}"]`)!;
+                toggle.classList.toggle('is-open');
+                namesEl.classList.toggle('is-open');
+            });
+        });
+
+        init();
+    }
+
+    document.querySelectorAll<HTMLElement>('.vote-panel').forEach(initVotePanel);
+</script>

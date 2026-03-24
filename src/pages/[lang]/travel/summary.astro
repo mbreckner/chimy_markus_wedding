@@ -1,0 +1,170 @@
+---
+export const prerender = false;
+
+import Layout from '../../../layouts/Layout.astro';
+import { t } from '../../../i18n';
+import type { Lang } from '../../../i18n';
+import { env } from 'cloudflare:workers';
+
+const { lang } = Astro.params as { lang: Lang };
+const tr = t(lang);
+const tv = tr.travel;
+const vt = tv.voting;
+
+const sections = [
+    { key: 'serengeti',   label: tv.destinations[1].name, number: '02' },
+    { key: 'ngorongoro',  label: tv.destinations[2].name, number: '03' },
+    { key: 'zanzibar',    label: tv.destinations[3].name, number: '04' },
+];
+
+interface Vote { name: string; status: string }
+
+const KV = env.KV;
+
+async function getVotes(section: string): Promise<Vote[]> {
+    const prefix = `votes:${section}:`;
+    const list = await KV.list({ prefix });
+    return Promise.all(
+        list.keys.map(async (key) => {
+            const name = key.name.slice(prefix.length);
+            const status = await KV.get(key.name);
+            return { name, status: status ?? '' };
+        })
+    );
+}
+
+const allVotes = await Promise.all(
+    sections.map(async (s) => ({ section: s, votes: await getVotes(s.key) }))
+);
+---
+
+<Layout lang={lang} page="travel">
+    <style>
+        .summary-table-wrap { overflow-x: auto; }
+        .summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+        .summary-table th {
+            font-size: 9px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 400;
+            padding: 0.6rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--divider);
+            white-space: nowrap;
+        }
+        .summary-table td {
+            padding: 0.6rem 1rem;
+            border-bottom: 1px solid var(--divider);
+            color: var(--text-mid);
+            vertical-align: middle;
+        }
+        .summary-table tr:last-child td { border-bottom: none; }
+        .summary-table tbody tr:hover td { background: var(--ivory-dark); }
+        .summary-name {
+            font-size: 13px;
+            color: var(--text-dark);
+            font-weight: 400;
+            white-space: nowrap;
+        }
+        .vote-badge {
+            display: inline-block;
+            font-size: 9px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 2px 8px;
+        }
+        .vote-badge--count-me-in {
+            color: #4a7c59;
+            background: #eef4f0;
+            border: 0.5px solid #4a7c59;
+        }
+        .vote-badge--still-deciding {
+            color: var(--gold);
+            background: var(--gold-light);
+            border: 0.5px solid var(--gold);
+        }
+        .summary-section-block { margin-top: 3rem; }
+        .summary-section-header { margin-bottom: 1rem; }
+        .summary-section-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 22px;
+            font-weight: 300;
+            color: var(--burgundy);
+            font-style: italic;
+        }
+        .summary-section-number {
+            font-size: 10px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-light);
+            margin-right: 0.5rem;
+        }
+        .summary-totals {
+            font-size: 11px;
+            color: var(--text-light);
+            margin-top: 0.25rem;
+        }
+        .no-votes { font-size: 13px; color: var(--text-light); font-style: italic; padding: 0.5rem 0; }
+    </style>
+
+    <div class="page-header">
+        <p class="page-eyebrow">{tv.eyebrow}</p>
+        <h1 class="page-title">{tv.title}</h1>
+    </div>
+
+    <div class="content">
+        {allVotes.map(({ section, votes }) => {
+            const countMeIn = votes.filter(v => v.status === 'count_me_in');
+            const stillDeciding = votes.filter(v => v.status === 'still_deciding');
+            const sorted = [...votes].sort((a, b) => {
+                if (a.status === b.status) return a.name.localeCompare(b.name);
+                return a.status === 'count_me_in' ? -1 : 1;
+            });
+            return (
+                <div class="summary-section-block">
+                    <div class="summary-section-header">
+                        <div>
+                            <span class="summary-section-number">{section.number}</span>
+                            <span class="summary-section-name">{section.label}</span>
+                        </div>
+                        <p class="summary-totals">
+                            {countMeIn.length} &times; {vt.countMeInList} &nbsp;&middot;&nbsp; {stillDeciding.length} &times; {vt.stillDecidingList}
+                        </p>
+                    </div>
+                    {votes.length === 0
+                        ? <p class="no-votes">{vt.noVotesYet}</p>
+                        : (
+                            <div class="summary-table-wrap">
+                                <table class="summary-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Vote</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {sorted.map(v => (
+                                            <tr>
+                                                <td class="summary-name">{v.name}</td>
+                                                <td>
+                                                    <span class={`vote-badge vote-badge--${v.status === 'count_me_in' ? 'count-me-in' : 'still-deciding'}`}>
+                                                        {v.status === 'count_me_in' ? vt.countMeInList : vt.stillDecidingList}
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        )
+                    }
+                </div>
+            );
+        })}
+    </div>
+</Layout>

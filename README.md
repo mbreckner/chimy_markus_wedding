@@ -46,13 +46,6 @@ Feel free to check [our documentation](https://docs.astro.build) or jump into ou
 
 ### Text changes
 - Tell them areas where to stay in Lusaka, close to the wedding, closer to the city, safe neighborhoods, etc.
-- Is the costs of our flights relevant?
-- Should we create categories for Q&A?
-- Gifts? Ask Claude if we should add anything here
 
 ### Travel planning
-- Add votings or something for travel plans
-- Create a section for travel plans where people can comment?
-
-### QA-Section
-- Post email when someone has a new question
+- Create a section for travel plans where people can comment? Only viewable for people that actually voted

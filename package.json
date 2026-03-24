@@ -8,10 +8,10 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "npm run build && HTTPS_PROXY= HTTP_PROXY= https_proxy= http_proxy= wrangler pages dev dist/client --port 8789",
+    "preview": "npm run build && HTTPS_PROXY= HTTP_PROXY= https_proxy= http_proxy= wrangler dev --config dist/client/server/wrangler.json --port 8789",
     "astro": "astro",
     "generate-types": "wrangler types",
-    "deploy": "npm run build && wrangler deploy --config dist/server/wrangler.json"
+    "deploy": "npm run build && wrangler deploy --config dist/client/server/wrangler.json"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^13.1.1",

@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import { t, languages } from '../../i18n';
 import type { Lang } from '../../i18n';
+import VotePanel from '../../components/VotePanel.astro';
 
 export function getStaticPaths() {
     return languages.map(lang => ({ params: { lang } }));
@@ -10,6 +11,13 @@ export function getStaticPaths() {
 const { lang } = Astro.params as { lang: Lang };
 const tr = t(lang);
 const tv = tr.travel;
+
+const sectionKeys: Record<string, string> = {
+    '01': 'lusaka',
+    '02': 'serengeti',
+    '03': 'ngorongoro',
+    '04': 'zanzibar',
+};
 ---
 
 <Layout lang={lang} page="travel">
@@ -146,6 +154,9 @@ const tv = tr.travel;
                                         : <li>{h}</li>;
                                 })}
                             </ul>
+                        )}
+                        {dest.number !== '01' && (
+                            <VotePanel section={sectionKeys[dest.number] ?? dest.number.toLowerCase()} lang={lang} />
                         )}
                     </div>
                 </div>
