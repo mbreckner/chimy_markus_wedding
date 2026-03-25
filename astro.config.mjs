@@ -4,6 +4,6 @@ import cloudflare from '@astrojs/cloudflare';
 
 // https://astro.build/config
 export default defineConfig({
-  adapter: cloudflare({ platformProxy: { enabled: true } }),
+  adapter: cloudflare({ platformProxy: { enabled: true }, imageService: 'passthrough', sessionKVBindingName: 'KV' }),
   outDir: './dist/client',
 });
