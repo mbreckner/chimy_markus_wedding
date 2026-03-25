@@ -41,7 +41,7 @@ const sections = [
             white-space: nowrap;
         }
         .summary-table td {
-            padding: 0.6rem 1rem;
+            padding: 0.75rem 1.25rem;
             border-bottom: 1px solid var(--divider);
             color: var(--text-mid);
             vertical-align: middle;
@@ -53,23 +53,36 @@ const sections = [
             color: var(--text-dark);
             font-weight: 400;
             white-space: nowrap;
+            min-width: 160px;
         }
-        .vote-badge {
-            display: inline-block;
-            font-size: 9px;
-            letter-spacing: 0.08em;
+        .vote-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.4rem 1rem;
+            border: 1px solid;
+            font-family: 'Jost', sans-serif;
+            font-size: 10px;
+            font-weight: 400;
+            letter-spacing: 0.14em;
             text-transform: uppercase;
-            padding: 2px 8px;
         }
-        .vote-badge--count-me-in {
+        .vote-tag-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: currentColor;
+            flex-shrink: 0;
+        }
+        .vote-tag--count-me-in {
             color: #4a7c59;
             background: #eef4f0;
-            border: 0.5px solid #4a7c59;
+            border-color: #4a7c59;
         }
-        .vote-badge--still-deciding {
+        .vote-tag--still-deciding {
             color: var(--gold);
             background: var(--gold-light);
-            border: 0.5px solid var(--gold);
+            border-color: var(--gold);
         }
         .summary-section-block { margin-top: 3rem; }
         .summary-section-header { margin-bottom: 1rem; }
@@ -149,7 +162,8 @@ const sections = [
                             ${sorted.map(v => `
                                 <tr>
                                     <td class="summary-name">${escapeHtml(v.name)}</td>
-                                    <td><span class="vote-badge vote-badge--${v.status === 'count_me_in' ? 'count-me-in' : 'still-deciding'}">
+                                    <td><span class="vote-tag vote-tag--${v.status === 'count_me_in' ? 'count-me-in' : 'still-deciding'}">
+                                        <span class="vote-tag-dot"></span>
                                         ${v.status === 'count_me_in' ? countMeInLabel : stillDecidingLabel}
                                     </span></td>
                                 </tr>`).join('')}
