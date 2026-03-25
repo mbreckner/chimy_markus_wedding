@@ -49,3 +49,4 @@ Feel free to check [our documentation](https://docs.astro.build) or jump into ou
 
 ### Travel planning
 - Create a section for travel plans where people can comment? Only viewable for people that actually voted
+
