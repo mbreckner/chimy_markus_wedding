@@ -4,8 +4,6 @@ export const prerender = false;
 import Layout from '../../../layouts/Layout.astro';
 import { t } from '../../../i18n';
 import type { Lang } from '../../../i18n';
-import { env } from 'cloudflare:workers';
-
 const { lang } = Astro.params as { lang: Lang };
 const tr = t(lang);
 const tv = tr.travel;
@@ -19,13 +17,14 @@ const sections = [
 
 interface Vote { name: string; status: string }
 
-const KV = env.KV;
+const KV = (Astro.locals as any).runtime?.env?.KV;
 
 async function getVotes(section: string): Promise<Vote[]> {
+    if (!KV) return [];
     const prefix = `votes:${section}:`;
     const list = await KV.list({ prefix });
     return Promise.all(
-        list.keys.map(async (key) => {
+        list.keys.map(async (key: { name: string }) => {
             const name = key.name.slice(prefix.length);
             const status = await KV.get(key.name);
             return { name, status: status ?? '' };

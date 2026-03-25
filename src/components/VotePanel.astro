@@ -242,7 +242,14 @@ const strings = JSON.stringify(vt);
                 placeholder={vt.namePlaceholder}
                 autocomplete="name"
             />
-            <button class="vote-btn" data-action="name-submit">{vt.nameSubmit}</button>
+            <button class="vote-btn" data-action="vote-new" data-status="count_me_in">
+                <span class="vote-btn-dot"></span>
+                {vt.countMeIn}
+            </button>
+            <button class="vote-btn" data-action="vote-new" data-status="still_deciding">
+                <span class="vote-btn-dot"></span>
+                {vt.stillDeciding}
+            </button>
         </div>
     </div>
 
@@ -336,6 +343,7 @@ const strings = JSON.stringify(vt);
         let votes: Vote[] = [];
         let confirmedName: string | null = null;
         let pendingName: string | null = null;
+        let pendingStatus: string | null = null;
 
         function savedName(): string | null {
             return localStorage.getItem(LS_KEY);
@@ -449,47 +457,63 @@ const strings = JSON.stringify(vt);
             renderLists();
         }
 
-        // Name submit
-        panel.querySelector<HTMLButtonElement>('[data-action="name-submit"]')!.addEventListener('click', async () => {
-            const name = nameInput.value.trim();
-            if (!name) {
-                nameInput.classList.add('is-error');
-                return;
-            }
-            nameInput.classList.remove('is-error');
-
-            // Check if this name already has a vote for this section
-            const existingVote = votes.find(v => v.name.toLowerCase() === name.toLowerCase());
-            if (existingVote) {
-                // Show conflict notice
-                pendingName = name;
-                conflictText.textContent = strings.conflictNotice.replace('{name}', name);
-                showPhase('conflict');
-            } else {
-                // New name — confirm immediately
-                confirmedName = name;
-                saveName(name);
-                updateNotYouBtn();
+        async function castVote(name: string, status: string) {
+            try {
+                await fetch('/api/votes', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ section, name, status }),
+                });
+                const existing = votes.find(v => v.name.toLowerCase() === name.toLowerCase());
+                if (existing) {
+                    existing.status = status;
+                } else {
+                    votes.push({ name, status });
+                }
                 updateVotingButtons();
-                showPhase('voting');
+                renderLists();
+            } catch {
+                // ignore
             }
-        });
+        }
 
-        // Allow pressing Enter in the name input
-        nameInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') {
-                panel.querySelector<HTMLButtonElement>('[data-action="name-submit"]')!.click();
-            }
+        // Vote-new buttons (name-entry phase): validate name + cast vote in one step
+        panel.querySelectorAll<HTMLButtonElement>('[data-action="vote-new"]').forEach(btn => {
+            btn.addEventListener('click', async () => {
+                const name = nameInput.value.trim();
+                if (!name) {
+                    nameInput.classList.add('is-error');
+                    nameInput.focus();
+                    return;
+                }
+                nameInput.classList.remove('is-error');
+
+                const existingVote = votes.find(v => v.name.toLowerCase() === name.toLowerCase());
+                if (existingVote) {
+                    pendingName = name;
+                    pendingStatus = btn.dataset.status!;
+                    conflictText.textContent = strings.conflictNotice.replace('{name}', name);
+                    showPhase('conflict');
+                } else {
+                    confirmedName = name;
+                    saveName(name);
+                    updateNotYouBtn();
+                    await castVote(name, btn.dataset.status!);
+                    showPhase('voting');
+                }
+            });
         });
 
         // Conflict: yes, update my vote
-        panel.querySelector<HTMLButtonElement>('[data-action="conflict-yes"]')!.addEventListener('click', () => {
+        panel.querySelector<HTMLButtonElement>('[data-action="conflict-yes"]')!.addEventListener('click', async () => {
             if (!pendingName) return;
             confirmedName = pendingName;
             saveName(pendingName);
+            const status = pendingStatus;
             pendingName = null;
+            pendingStatus = null;
             updateNotYouBtn();
-            updateVotingButtons();
+            if (status) await castVote(confirmedName, status);
             showPhase('voting');
         });
 
@@ -501,29 +525,11 @@ const strings = JSON.stringify(vt);
             nameInput.focus();
         });
 
-        // Vote buttons
+        // Vote buttons (voting phase)
         panel.querySelectorAll<HTMLButtonElement>('[data-action="vote"]').forEach(btn => {
             btn.addEventListener('click', async () => {
                 if (!confirmedName) return;
-                const status = btn.dataset.status!;
-                try {
-                    await fetch('/api/votes', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ section, name: confirmedName, status }),
-                    });
-                    // Update local state
-                    const existing = votes.find(v => v.name.toLowerCase() === confirmedName!.toLowerCase());
-                    if (existing) {
-                        existing.status = status;
-                    } else {
-                        votes.push({ name: confirmedName!, status });
-                    }
-                    updateVotingButtons();
-                    renderLists();
-                } catch {
-                    // ignore
-                }
+                await castVote(confirmedName, btn.dataset.status!);
             });
         });
 

@@ -1,5 +1,4 @@
 import type { APIContext } from 'astro';
-import { env } from 'cloudflare:workers';
 
 export const prerender = false;
 
@@ -13,7 +12,7 @@ function json(data: unknown, status = 200) {
     });
 }
 
-export async function GET({ request }: APIContext) {
+export async function GET({ request, locals }: APIContext) {
     const url = new URL(request.url);
     const section = url.searchParams.get('section');
 
@@ -21,12 +20,14 @@ export async function GET({ request }: APIContext) {
         return json({ error: 'Invalid or missing section' }, 400);
     }
 
-    const KV = env.KV;
+    const KV = (locals as any).runtime?.env?.KV;
+    if (!KV) return json({ error: 'KV not configured' }, 503);
+
     const prefix = `votes:${section}:`;
     const list = await KV.list({ prefix });
 
     const votes = await Promise.all(
-        list.keys.map(async (key) => {
+        list.keys.map(async (key: { name: string }) => {
             const name = key.name.slice(prefix.length);
             const status = await KV.get(key.name);
             return { name, status };
@@ -36,7 +37,7 @@ export async function GET({ request }: APIContext) {
     return json(votes);
 }
 
-export async function POST({ request }: APIContext) {
+export async function POST({ request, locals }: APIContext) {
     let body: { section?: string; name?: string; status?: string };
     try {
         body = await request.json();
@@ -56,14 +57,16 @@ export async function POST({ request }: APIContext) {
         return json({ error: 'Invalid or missing status' }, 400);
     }
 
-    const KV = env.KV;
+    const KV = (locals as any).runtime?.env?.KV;
+    if (!KV) return json({ error: 'KV not configured' }, 503);
+
     const key = `votes:${section}:${name.trim()}`;
     await KV.put(key, status);
 
     return json({ ok: true });
 }
 
-export async function DELETE({ request }: APIContext) {
+export async function DELETE({ request, locals }: APIContext) {
     let body: { section?: string; name?: string };
     try {
         body = await request.json();
@@ -80,7 +83,9 @@ export async function DELETE({ request }: APIContext) {
         return json({ error: 'Invalid or missing name' }, 400);
     }
 
-    const KV = env.KV;
+    const KV = (locals as any).runtime?.env?.KV;
+    if (!KV) return json({ error: 'KV not configured' }, 503);
+
     const key = `votes:${section}:${name.trim()}`;
     await KV.delete(key);
 
