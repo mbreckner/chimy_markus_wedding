@@ -70,6 +70,7 @@ export const en = {
             stillDecidingList: "Considering it",
             noVotesYet: "No votes yet",
             loadingError: "Could not load votes.",
+            zanzibarHint: "Voting \"Joining\" doesn't mean you're committing to all 11 days — it just means you plan to come to Zanzibar at some point during this period, whether for 1 day or the full stretch (or even longer).",
         },
         destinations: [
             {

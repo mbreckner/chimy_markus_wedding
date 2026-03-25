@@ -1,9 +1,14 @@
 ---
-export const prerender = false;
+export const prerender = true;
 
 import Layout from '../../../layouts/Layout.astro';
-import { t } from '../../../i18n';
+import { t, languages } from '../../../i18n';
 import type { Lang } from '../../../i18n';
+
+export function getStaticPaths() {
+    return languages.map(lang => ({ params: { lang } }));
+}
+
 const { lang } = Astro.params as { lang: Lang };
 const tr = t(lang);
 const tv = tr.travel;
@@ -14,31 +19,10 @@ const sections = [
     { key: 'ngorongoro',  label: tv.destinations[2].name, number: '03' },
     { key: 'zanzibar',    label: tv.destinations[3].name, number: '04' },
 ];
-
-interface Vote { name: string; status: string }
-
-const KV = (Astro.locals as any).runtime?.env?.KV;
-
-async function getVotes(section: string): Promise<Vote[]> {
-    if (!KV) return [];
-    const prefix = `votes:${section}:`;
-    const list = await KV.list({ prefix });
-    return Promise.all(
-        list.keys.map(async (key: { name: string }) => {
-            const name = key.name.slice(prefix.length);
-            const status = await KV.get(key.name);
-            return { name, status: status ?? '' };
-        })
-    );
-}
-
-const allVotes = await Promise.all(
-    sections.map(async (s) => ({ section: s, votes: await getVotes(s.key) }))
-);
 ---
 
 <Layout lang={lang} page="travel">
-    <style>
+    <style is:global>
         .summary-table-wrap { overflow-x: auto; }
         .summary-table {
             width: 100%;
@@ -57,7 +41,7 @@ const allVotes = await Promise.all(
             white-space: nowrap;
         }
         .summary-table td {
-            padding: 0.6rem 1rem;
+            padding: 0.75rem 1.25rem;
             border-bottom: 1px solid var(--divider);
             color: var(--text-mid);
             vertical-align: middle;
@@ -69,23 +53,36 @@ const allVotes = await Promise.all(
             color: var(--text-dark);
             font-weight: 400;
             white-space: nowrap;
+            min-width: 160px;
         }
-        .vote-badge {
-            display: inline-block;
-            font-size: 9px;
-            letter-spacing: 0.08em;
+        .vote-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.4rem 1rem;
+            border: 1px solid;
+            font-family: 'Jost', sans-serif;
+            font-size: 10px;
+            font-weight: 400;
+            letter-spacing: 0.14em;
             text-transform: uppercase;
-            padding: 2px 8px;
         }
-        .vote-badge--count-me-in {
+        .vote-tag-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: currentColor;
+            flex-shrink: 0;
+        }
+        .vote-tag--count-me-in {
             color: #4a7c59;
             background: #eef4f0;
-            border: 0.5px solid #4a7c59;
+            border-color: #4a7c59;
         }
-        .vote-badge--still-deciding {
+        .vote-tag--still-deciding {
             color: var(--gold);
             background: var(--gold-light);
-            border: 0.5px solid var(--gold);
+            border-color: var(--gold);
         }
         .summary-section-block { margin-top: 3rem; }
         .summary-section-header { margin-bottom: 1rem; }
@@ -109,6 +106,7 @@ const allVotes = await Promise.all(
             margin-top: 0.25rem;
         }
         .no-votes { font-size: 13px; color: var(--text-light); font-style: italic; padding: 0.5rem 0; }
+        .summary-loading { font-size: 13px; color: var(--text-light); font-style: italic; }
     </style>
 
     <div class="page-header">
@@ -116,54 +114,68 @@ const allVotes = await Promise.all(
         <h1 class="page-title">{tv.title}</h1>
     </div>
 
-    <div class="content">
-        {allVotes.map(({ section, votes }) => {
+    <div class="content" id="summary-content">
+        {sections.map(section => (
+            <div class="summary-section-block" id={`section-${section.key}`}>
+                <div class="summary-section-header">
+                    <div>
+                        <span class="summary-section-number">{section.number}</span>
+                        <span class="summary-section-name">{section.label}</span>
+                    </div>
+                    <p class="summary-totals" id={`totals-${section.key}`}></p>
+                </div>
+                <div id={`table-${section.key}`}>
+                    <p class="summary-loading">Loading…</p>
+                </div>
+            </div>
+        ))}
+    </div>
+
+    <script define:vars={{ sections, countMeInLabel: vt.countMeInList, stillDecidingLabel: vt.stillDecidingList, noVotesLabel: vt.noVotesYet }}>
+        async function loadSection(section) {
+            const res = await fetch(`/api/votes?section=${section.key}`);
+            if (!res.ok) return;
+            const votes = await res.json();
+
             const countMeIn = votes.filter(v => v.status === 'count_me_in');
             const stillDeciding = votes.filter(v => v.status === 'still_deciding');
+
+            document.getElementById(`totals-${section.key}`).textContent =
+                `${countMeIn.length} × ${countMeInLabel}  ·  ${stillDeciding.length} × ${stillDecidingLabel}`;
+
+            const tableEl = document.getElementById(`table-${section.key}`);
+            if (votes.length === 0) {
+                tableEl.innerHTML = `<p class="no-votes">${noVotesLabel}</p>`;
+                return;
+            }
+
             const sorted = [...votes].sort((a, b) => {
                 if (a.status === b.status) return a.name.localeCompare(b.name);
                 return a.status === 'count_me_in' ? -1 : 1;
             });
-            return (
-                <div class="summary-section-block">
-                    <div class="summary-section-header">
-                        <div>
-                            <span class="summary-section-number">{section.number}</span>
-                            <span class="summary-section-name">{section.label}</span>
-                        </div>
-                        <p class="summary-totals">
-                            {countMeIn.length} &times; {vt.countMeInList} &nbsp;&middot;&nbsp; {stillDeciding.length} &times; {vt.stillDecidingList}
-                        </p>
-                    </div>
-                    {votes.length === 0
-                        ? <p class="no-votes">{vt.noVotesYet}</p>
-                        : (
-                            <div class="summary-table-wrap">
-                                <table class="summary-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Vote</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {sorted.map(v => (
-                                            <tr>
-                                                <td class="summary-name">{v.name}</td>
-                                                <td>
-                                                    <span class={`vote-badge vote-badge--${v.status === 'count_me_in' ? 'count-me-in' : 'still-deciding'}`}>
-                                                        {v.status === 'count_me_in' ? vt.countMeInList : vt.stillDecidingList}
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </div>
-                        )
-                    }
-                </div>
-            );
-        })}
-    </div>
+
+            tableEl.innerHTML = `
+                <div class="summary-table-wrap">
+                    <table class="summary-table">
+                        <thead><tr><th>Name</th><th>Vote</th></tr></thead>
+                        <tbody>
+                            ${sorted.map(v => `
+                                <tr>
+                                    <td class="summary-name">${escapeHtml(v.name)}</td>
+                                    <td><span class="vote-tag vote-tag--${v.status === 'count_me_in' ? 'count-me-in' : 'still-deciding'}">
+                                        <span class="vote-tag-dot"></span>
+                                        ${v.status === 'count_me_in' ? countMeInLabel : stillDecidingLabel}
+                                    </span></td>
+                                </tr>`).join('')}
+                        </tbody>
+                    </table>
+                </div>`;
+        }
+
+        function escapeHtml(str) {
+            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
+        sections.forEach(loadSection);
+    </script>
 </Layout>

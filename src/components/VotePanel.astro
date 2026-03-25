@@ -5,9 +5,10 @@ import { t } from '../i18n';
 interface Props {
     section: string;
     lang: Lang;
+    hint?: string;
 }
 
-const { section, lang } = Astro.props;
+const { section, lang, hint } = Astro.props;
 const vt = t(lang).travel.voting;
 
 const strings = JSON.stringify(vt);
@@ -25,8 +26,15 @@ const strings = JSON.stringify(vt);
             letter-spacing: 0.2em;
             text-transform: uppercase;
             color: var(--text-light);
-            margin-bottom: 1rem;
+            margin-bottom: 0.4rem;
             font-weight: 400;
+        }
+        .vote-section-hint {
+            font-size: 11px;
+            color: var(--text-light);
+            font-style: italic;
+            line-height: 1.6;
+            margin-bottom: 1rem;
         }
 
         /* Name entry */
@@ -231,6 +239,7 @@ const strings = JSON.stringify(vt);
     </style>
 
     <p class="vote-section-label" data-key="sectionLabel">{vt.sectionLabel}</p>
+    {hint && <p class="vote-section-hint">{hint}</p>}
 
     <!-- Phase 1: Name entry (shown when no name is saved) -->
     <div class="vote-phase" data-phase="name-entry" hidden>
@@ -458,23 +467,20 @@ const strings = JSON.stringify(vt);
         }
 
         async function castVote(name: string, status: string) {
-            try {
-                await fetch('/api/votes', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ section, name, status }),
-                });
-                const existing = votes.find(v => v.name.toLowerCase() === name.toLowerCase());
-                if (existing) {
-                    existing.status = status;
-                } else {
-                    votes.push({ name, status });
-                }
-                updateVotingButtons();
-                renderLists();
-            } catch {
-                // ignore
+            const res = await fetch('/api/votes', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ section, name, status }),
+            });
+            if (!res.ok) throw new Error('Failed to save vote');
+            const existing = votes.find(v => v.name.toLowerCase() === name.toLowerCase());
+            if (existing) {
+                existing.status = status;
+            } else {
+                votes.push({ name, status });
             }
+            updateVotingButtons();
+            renderLists();
         }
 
         // Vote-new buttons (name-entry phase): validate name + cast vote in one step
@@ -498,8 +504,14 @@ const strings = JSON.stringify(vt);
                     confirmedName = name;
                     saveName(name);
                     updateNotYouBtn();
-                    await castVote(name, btn.dataset.status!);
-                    showPhase('voting');
+                    try {
+                        await castVote(name, btn.dataset.status!);
+                        showPhase('voting');
+                    } catch {
+                        // revert on failure
+                        confirmedName = null;
+                        nameInput.classList.add('is-error');
+                    }
                 }
             });
         });
@@ -513,7 +525,14 @@ const strings = JSON.stringify(vt);
             pendingName = null;
             pendingStatus = null;
             updateNotYouBtn();
-            if (status) await castVote(confirmedName, status);
+            if (status) {
+                try {
+                    await castVote(confirmedName, status);
+                } catch {
+                    // vote failed, stay on conflict phase
+                    return;
+                }
+            }
             showPhase('voting');
         });
 
@@ -529,7 +548,11 @@ const strings = JSON.stringify(vt);
         panel.querySelectorAll<HTMLButtonElement>('[data-action="vote"]').forEach(btn => {
             btn.addEventListener('click', async () => {
                 if (!confirmedName) return;
-                await castVote(confirmedName, btn.dataset.status!);
+                try {
+                    await castVote(confirmedName, btn.dataset.status!);
+                } catch {
+                    // ignore — vote failed silently
+                }
             });
         });
 
@@ -537,14 +560,16 @@ const strings = JSON.stringify(vt);
         panel.querySelector<HTMLButtonElement>('[data-action="remove-vote"]')!.addEventListener('click', async () => {
             if (!confirmedName) return;
             try {
-                await fetch('/api/votes', {
+                const res = await fetch('/api/votes', {
                     method: 'DELETE',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ section, name: confirmedName }),
                 });
+                if (!res.ok) throw new Error('Failed to remove vote');
                 votes = votes.filter(v => v.name.toLowerCase() !== confirmedName!.toLowerCase());
                 updateVotingButtons();
                 renderLists();
+                showPhase('name-entry');
             } catch {
                 // ignore
             }
