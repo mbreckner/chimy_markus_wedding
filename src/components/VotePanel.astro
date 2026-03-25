@@ -5,9 +5,10 @@ import { t } from '../i18n';
 interface Props {
     section: string;
     lang: Lang;
+    hint?: string;
 }
 
-const { section, lang } = Astro.props;
+const { section, lang, hint } = Astro.props;
 const vt = t(lang).travel.voting;
 
 const strings = JSON.stringify(vt);
@@ -25,8 +26,15 @@ const strings = JSON.stringify(vt);
             letter-spacing: 0.2em;
             text-transform: uppercase;
             color: var(--text-light);
-            margin-bottom: 1rem;
+            margin-bottom: 0.4rem;
             font-weight: 400;
+        }
+        .vote-section-hint {
+            font-size: 11px;
+            color: var(--text-light);
+            font-style: italic;
+            line-height: 1.6;
+            margin-bottom: 1rem;
         }
 
         /* Name entry */
@@ -231,6 +239,7 @@ const strings = JSON.stringify(vt);
     </style>
 
     <p class="vote-section-label" data-key="sectionLabel">{vt.sectionLabel}</p>
+    {hint && <p class="vote-section-hint">{hint}</p>}
 
     <!-- Phase 1: Name entry (shown when no name is saved) -->
     <div class="vote-phase" data-phase="name-entry" hidden>

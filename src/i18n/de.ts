@@ -70,6 +70,7 @@ export const de = {
             stillDecidingList: "Vielleicht dabei",
             noVotesYet: "Noch keine Abstimmungen",
             loadingError: "Abstimmungen konnten nicht geladen werden.",
+            zanzibarHint: "\"Bin dabei\" bedeutet nicht, dass du alle 11 Tage kommst — es bedeutet nur, dass du irgendwann in diesem Zeitraum nach Sansibar reist, ob für einen Tag oder die ganze Zeit (oder sogar länger).",
         },
         destinations: [
             {

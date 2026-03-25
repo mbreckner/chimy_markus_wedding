@@ -156,7 +156,11 @@ const sectionKeys: Record<string, string> = {
                             </ul>
                         )}
                         {sectionKeys[dest.number] !== 'lusaka' && (
-                            <VotePanel section={sectionKeys[dest.number]} lang={lang} />
+                            <VotePanel
+                                section={sectionKeys[dest.number]}
+                                lang={lang}
+                                hint={sectionKeys[dest.number] === 'zanzibar' ? tr.travel.voting.zanzibarHint : undefined}
+                            />
                         )}
                     </div>
                 </div>
