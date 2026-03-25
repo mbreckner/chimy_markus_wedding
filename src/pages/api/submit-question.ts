@@ -1,11 +1,11 @@
-interface Env {
-    BREVO_API_KEY: string;
-}
+import type { APIContext } from 'astro';
 
-export const onRequestPost: PagesFunction<Env> = async (context) => {
+export const prerender = false;
+
+export async function POST({ request, locals }: APIContext) {
     let name: string, question: string;
     try {
-        const body = await context.request.json() as { name?: string; question?: string };
+        const body = await request.json() as { name?: string; question?: string };
         name = (body.name ?? '').trim();
         question = (body.question ?? '').trim();
     } catch {
@@ -16,7 +16,8 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
         return new Response(JSON.stringify({ error: 'Name and question are required' }), { status: 400 });
     }
 
-    const apiKey = context.env.BREVO_API_KEY;
+    const runtime = (locals as { runtime?: { env?: { BREVO_API_KEY?: string } } }).runtime;
+    const apiKey = runtime?.env?.BREVO_API_KEY;
     if (!apiKey) {
         console.error('BREVO_API_KEY is not configured');
         return new Response(JSON.stringify({ error: 'Email service not configured' }), { status: 503 });
@@ -47,4 +48,4 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     }
 
     return new Response(JSON.stringify({ success: true }), { status: 200 });
-};
+}
