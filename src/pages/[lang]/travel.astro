@@ -155,7 +155,9 @@ const sectionKeys: Record<string, string> = {
                                 })}
                             </ul>
                         )}
-                        <VotePanel section={sectionKeys[dest.number]} lang={lang} />
+                        {sectionKeys[dest.number] !== 'lusaka' && (
+                            <VotePanel section={sectionKeys[dest.number]} lang={lang} />
+                        )}
                     </div>
                 </div>
         ))}

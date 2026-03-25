@@ -560,6 +560,7 @@ const strings = JSON.stringify(vt);
                 votes = votes.filter(v => v.name.toLowerCase() !== confirmedName!.toLowerCase());
                 updateVotingButtons();
                 renderLists();
+                showPhase('name-entry');
             } catch {
                 // ignore
             }
