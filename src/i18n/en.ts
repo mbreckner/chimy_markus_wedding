@@ -53,9 +53,9 @@ export const en = {
         itineraryBooked: "Booked",
         itineraryOpen: "Still planning",
         intro: "A rough outline of the trip around the wedding — shared so you can plan ahead. Join us for all of it, or just the parts that work for you.",
-        note: "For each leg you can indicate whether you're joining — scroll down to vote in each section. This helps us get a sense of group sizes for things like shared transport or crater rim hikes. We'll keep this page updated as plans are confirmed — flights, accommodation, and activities everyone books independently.",
+        note: "For each section you can indicate whether you're joining — scroll down to vote. This helps us get a sense of group sizes for things like shared transport or crater rim hikes. We'll keep this page updated as plans are confirmed — flights, accommodation, and activities everyone books independently.",
         voting: {
-            sectionLabel: "Are you joining this leg?",
+            sectionLabel: "Are you joining this section?",
             countMeIn: "Joining",
             stillDeciding: "Considering it",
             removeVote: "Remove my vote",
